@@ -132,12 +132,15 @@ Macierz<TYP,ROZMIAR> Macierz<TYP,ROZMIAR>::odwroc() const{
 template<class TYP, int ROZMIAR>
  Wektor<TYP,ROZMIAR> Macierz<TYP,ROZMIAR>::operator *(const Wektor<TYP,ROZMIAR> & wektor) const
 {
+  // std::cout << "Multiplying:" <<std::endl << wektor <<std::endl;
+  // std::cout << "end" <<std::endl << (*this) <<std::endl;
   Wektor<TYP,ROZMIAR> wynik;
   for (int i = 0; i < ROZMIAR; i++)    
   {
     for (int j = 0; j < ROZMIAR; j++)    
     {
       wynik[i] += (*this)[j][i] * wektor[j];
+      // std::cout << "M[i,j]" << (*this)[j][i] << "*" << "w[j]" << wektor[j] << "=" << wynik[i] <<std::endl;
     }
   }
   return wynik;

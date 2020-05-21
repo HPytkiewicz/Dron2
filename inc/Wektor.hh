@@ -12,6 +12,11 @@ protected:
   
   public:
   Wektor<TYP,ROZMIAR>() {for(TYP &ElemTab: tab) ElemTab =0;};
+  Wektor<TYP,ROZMIAR>(double x, double y, double z){
+    this->tab[0]=x;
+    this->tab[1]=y;
+    this->tab[2]=z;
+  }
   
   const TYP & operator[] (int index) const;
   TYP & operator[] (int index);
