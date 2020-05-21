@@ -60,7 +60,7 @@ class APIGnuPlot3D : public drawNS::Draw3DAPI {
    */
   std::string command;
   /*!
-   * \brief variable used to give indiviual id to each shape
+p   * \brief variable used to give indiviual id to each shape
    */
   uint last_shape;
   /*!
