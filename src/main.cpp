@@ -11,7 +11,7 @@ void waitKey()
     do
     {
         std::cout << "\n Press a key to continue..." << std::endl;
-    } while (std::cin.get() != '\n');
+    } while (cin.get() != '\n');
 }
 
 int main()
@@ -46,22 +46,40 @@ int main()
     macierzWierzch1[6] = {3, 3, 3};
     macierzWierzch1[7] = {3, 0, 3};
 */
+
     
     Dron D1{gnuplot};
-    
     D1.rysuj();
-    
-
-    waitKey();
-    D1.obroc(45);
-    D1.rysuj();
-
-    waitKey();
-
-    D1.obroc(45);
-    D1.rysuj();
-
-    waitKey();
+    char odczyt;
+    do{
+        D1.wez_polozenie();
+        cout << endl << "Wczytaj swoj ruch: " << endl;
+        cin >> odczyt;
+        if(odczyt=='w')
+        {
+            D1.naprzod(5);
+            D1.wez_polozenie();
+        }
+        if(odczyt=='s')
+        {
+            D1.naprzod(-5);
+            D1.wez_polozenie();
+        }
+        if(odczyt=='a')
+        {
+            D1.dodaj_kat(15);
+            D1.skrec();
+            D1.wez_polozenie();
+        }
+        if(odczyt=='d')
+        {
+            D1.dodaj_kat(-15);
+            D1.skrec();
+            D1.wez_polozenie();
+        }
+        D1.rysuj();
+    } while (odczyt != 'k');
+    D1.wez_polozenie(); 
 
     /*auto rot = MacierzObrotu::Z(45);
     for (int i = 0; i < 8; i++)
