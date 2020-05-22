@@ -12,16 +12,21 @@ using namespace std;
 using namespace drawNS;
 
 class Dron : public MacierzObrotu {
-public:
-vector<Wektor3D> wymiary;
+vector<Wektor3D> wierzcholki_lokalnie;
+vector<vector<Point3D>> wierzcholki_globalnie;
+Wektor3D srodek;
 Macierz<double,3> orientacja;
-
+std::shared_ptr<drawNS::Draw3DAPI> lacze;
+uint id;
+public:
 Dron()=delete;
-Dron(Wektor3D W0,Wektor3D W1,Wektor3D W2,Wektor3D W3,Wektor3D W4,Wektor3D W5,Wektor3D W6,Wektor3D W7);
+Dron(std::shared_ptr<drawNS::Draw3DAPI> gnuplot);
 
 void rysuj();
-//void obroc(double stopnie);
-//void usun();
+void skrec(double stopnie);
+
+void usun();
+void ustaw_globalnie();
 
 };
 

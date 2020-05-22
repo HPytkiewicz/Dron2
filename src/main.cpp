@@ -16,7 +16,7 @@ void waitKey()
 
 int main()
 {
-    std::shared_ptr<drawNS::Draw3DAPI> gnuplot(new APIGnuPlot3D(-10,10,-10,10,-10,10));
+    std::shared_ptr<drawNS::Draw3DAPI> gnuplot(new APIGnuPlot3D(-20,20,-20,20,-20,20));
 
     // gnuplot.draw_line(Point3D(1,2,3),Point3D(4,5,6));
     // vector<Point3D> p = {Point3D(1,2,3)};
@@ -46,9 +46,19 @@ int main()
     macierzWierzch1[6] = {3, 3, 3};
     macierzWierzch1[7] = {3, 0, 3};
 */
-
-    Dron D1{{0,0,0},{0,3,0},{3,3,0},{3,0,0},{0,0,3},{0,3,3},{3,3,3},{3,0,3}};
     
+    Dron D1{gnuplot};
+    
+    D1.rysuj();
+    
+
+    waitKey();
+    D1.obroc(45);
+    D1.rysuj();
+
+    waitKey();
+
+    D1.obroc(45);
     D1.rysuj();
 
     waitKey();
