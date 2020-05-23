@@ -7,6 +7,7 @@ using namespace drawNS;
 
 Dron::Dron(std::shared_ptr<drawNS::Draw3DAPI> gnuplot){
 wierzcholki_lokalnie.reserve(8);
+wierzcholki_globalnie.reserve(8);    
 
 (*this).zeruj_lokalne();
 
@@ -21,15 +22,14 @@ void Dron::rysuj()
 {
     (*this).usun();
     (*this).ustaw_globalnie();
-    id = lacze->draw_polyhedron(wierzcholki_globalnie);
+    this->id = this->lacze->draw_polyhedron(wierzcholki_globalnie);
 }
 
 void Dron::skrec()
 {
-wierzcholki_globalnie.reserve(8);    
 (*this).zeruj_lokalne();
 (*this).zeruj_orientacje();
-auto rot = MacierzObrotu::Z(kat);
+auto rot = MacierzObrotu::Z(katZ)*MacierzObrotu::X(katX);
 this->orientacja = this->orientacja * rot;
 for (int i = 0; i < 8; i++)
     {
@@ -44,6 +44,12 @@ void Dron::usun()
 
 void Dron::naprzod(double odleglosc)
 {
+    double kat;
+    do{
+    cout << "Podaj kat przechylenia: " << endl;
+    cin >> kat;
+    }while(!cin.good());
+    (*this).dodaj_katX(kat);
     skrec();
     Wektor3D pomoc = {0,odleglosc,0};
     pomoc = this->orientacja * pomoc;
@@ -52,7 +58,6 @@ void Dron::naprzod(double odleglosc)
 
 void Dron::ustaw_globalnie()
 {
- wierzcholki_globalnie.reserve(8);
     this->wierzcholki_globalnie = {
         {
             Point3D((*this).wierzcholki_lokalnie[0][0]+srodek[0], (*this).wierzcholki_lokalnie[0][1]+srodek[1], (*this).wierzcholki_lokalnie[0][2]+srodek[2]),
@@ -77,9 +82,7 @@ void Dron::zeruj_orientacje()
 
 void Dron::zeruj_lokalne()
 {
-    wierzcholki_lokalnie.reserve(8);
-
-this->wierzcholki_lokalnie = {
+    this->wierzcholki_lokalnie = {
     wierzcholki_lokalnie[0]={-4,6,-3},
     wierzcholki_lokalnie[1]={4,6,-3},
     wierzcholki_lokalnie[2]={4,-6,-3},

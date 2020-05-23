@@ -1,6 +1,6 @@
 #include "Macierz.hh"
 #include <cmath>
-#define PI 3.14159
+#define PI 3.14159265
 
 class MacierzObrotu
 {

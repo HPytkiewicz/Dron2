@@ -2,6 +2,7 @@
 #include "Draw3D_api_interface.hh"
 #include "Wektor.hh"
 #include "Macierz.hh"
+#include "Plaszczyzna.hh"
 #include "Dron.hh"
 using namespace std;
 using namespace drawNS;
@@ -17,6 +18,11 @@ void waitKey()
 int main()
 {
     std::shared_ptr<drawNS::Draw3DAPI> gnuplot(new APIGnuPlot3D(-20,20,-20,20,-20,20));
+
+    Plaszczyzna Dno(-15, gnuplot), Woda(15,gnuplot);
+    Woda.ustaw_niebieski();
+    Dno.rysuj_plaszczyzne();
+    Woda.rysuj_plaszczyzne();
 
     // gnuplot.draw_line(Point3D(1,2,3),Point3D(4,5,6));
     // vector<Point3D> p = {Point3D(1,2,3)};
@@ -67,13 +73,13 @@ int main()
         }
         if(odczyt=='a')
         {
-            D1.dodaj_kat(15);
+            D1.dodaj_katZ(15);
             D1.skrec();
             D1.wez_polozenie();
         }
         if(odczyt=='d')
         {
-            D1.dodaj_kat(-15);
+            D1.dodaj_katZ(-15);
             D1.skrec();
             D1.wez_polozenie();
         }
