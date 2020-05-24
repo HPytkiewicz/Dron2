@@ -2,43 +2,36 @@
 #define DRON_HH
 
 #include <iostream>
+#include <cmath>
+#include <unistd.h>
 #include "Wektor.hh"
 #include "Macierz.hh"
 #include "Dr3D_gnuplot_api.hh"
 #include "MacierzObrotu.hh"
 #include "Wektor3D.hh"
+#include "Prostopadloscian.hh"
 
 using namespace std;
 using namespace drawNS;
 
-class Dron : public MacierzObrotu {
-vector<Wektor3D> wierzcholki_lokalnie;
-vector<vector<Point3D>> wierzcholki_globalnie;
-Wektor3D srodek;
-Macierz<double,3> orientacja;
-std::shared_ptr<drawNS::Draw3DAPI> lacze;
-double katZ=0;
-double katX=0;
-uint id;
+class Dron : public Prostopadloscian {
+
 public:
 Dron()=delete;
-Dron(std::shared_ptr<drawNS::Draw3DAPI> gnuplot);
+Dron(vector<Wektor3D> nowe_wierzcholki, Wektor3D nowy_srodek, std::shared_ptr<drawNS::Draw3DAPI> gnuplot): Prostopadloscian(nowe_wierzcholki, 
+nowy_srodek, gnuplot)
+{
+(*this).zeruj_lokalne();
 
-void rysuj();
-void skrec();
-void przechyl();
-void naprzod(double odleglosc);
+(*this).zeruj_orientacje();
 
-void usun();
-void ustaw_globalnie();
-void zeruj_orientacje();
-void zeruj_lokalne();
+this->srodek={0,0,0};
 
-Macierz<double,3> wez_orientacje() {cout << this->katZ << " " << this->katX << endl;return orientacja;}
-Wektor3D wez_srodek() {return srodek;}
-void dodaj_katZ(double stopnie){this->katZ += stopnie;}
-void dodaj_katX(double stopnie){this->katX += stopnie;}
-void wez_polozenie();
+this->lacze=gnuplot;
+}
+
+void animacjaObrotu();
+void animacjaNaprzod();
 
 };
 

@@ -1,3 +1,6 @@
+#ifndef MACIERZOB_HH
+#define MACIERZOB_HH
+
 #include "Macierz.hh"
 #include <cmath>
 #define PI 3.14159265
@@ -53,3 +56,4 @@ class MacierzObrotu
             return m;
         }
 };
+#endif
