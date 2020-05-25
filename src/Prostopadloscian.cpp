@@ -47,7 +47,7 @@ void Prostopadloscian::skrec()
 {
     (*this).zeruj_lokalne();
     (*this).zeruj_orientacje();
-    auto rot = MacierzObrotu::Z(katZ)*MacierzObrotu::X(katX);
+    auto rot = MacierzObrotu::Z(katZ)*MacierzObrotu::Y(katY)*MacierzObrotu::X(katX);
     this->orientacja = this->orientacja * rot;
     for (int i = 0; i < 8; i++)
     {
@@ -61,4 +61,9 @@ void Prostopadloscian::naprzod(double odleglosc, double katpom)
     Wektor3D pomoc = {0,odleglosc,0};
     pomoc = this->orientacja * pomoc;
     this->srodek=this->srodek + pomoc;
+}
+
+void Prostopadloscian::ustaw_srodek(Wektor3D nowy_srodek)
+{
+    this->srodek = nowy_srodek;
 }

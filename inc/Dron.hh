@@ -15,11 +15,25 @@ using namespace std;
 using namespace drawNS;
 
 class Dron : public Prostopadloscian {
+    /*!
+    * \brief Lewa sruba drona
+    */
+Prostopadloscian SrubaL;
+/*!
+    * \brief Prawa sruba drona
+    */
+Prostopadloscian SrubaP;
 
 public:
+/*!
+    * \brief Usuniety konstruktor bezparametryczny
+    */
 Dron()=delete;
+/*!
+    * \brief Konstruktor przyjmujacy wierzcholki ciala drona, jego srodek oraz wskaznik na lacze do gnuplota
+    */
 Dron(vector<Wektor3D> nowe_wierzcholki, Wektor3D nowy_srodek, std::shared_ptr<drawNS::Draw3DAPI> gnuplot): Prostopadloscian(nowe_wierzcholki, 
-nowy_srodek, gnuplot)
+nowy_srodek, gnuplot), SrubaL({-3,-9.5,0}, gnuplot), SrubaP({3,-9.5,0}, gnuplot)
 {
 (*this).zeruj_lokalne();
 
@@ -32,6 +46,7 @@ this->lacze=gnuplot;
 
 void animacjaObrotu();
 void animacjaNaprzod();
+void animacjaSruby();
 
 };
 

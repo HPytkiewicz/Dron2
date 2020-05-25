@@ -32,19 +32,16 @@ int main()
     wierzcholki_drona.reserve(8);
     wierzcholki_drona = 
     {
-    wierzcholki_drona[0] = {0,0,0},
-    wierzcholki_drona[1] = {0,6,0},
-    wierzcholki_drona[2] = {6,6,0},
-    wierzcholki_drona[3] = {6,0,0},
-    wierzcholki_drona[4] = {0,0,6},
-    wierzcholki_drona[5] = {0,6,6},
-    wierzcholki_drona[6] = {6,6,6},
-    wierzcholki_drona[7] = {6,0,6},
+    wierzcholki_drona[0] = {-6,8,-4},
+    wierzcholki_drona[1] = {6,8,-4},
+    wierzcholki_drona[2] = {6,-8,-4},
+    wierzcholki_drona[3] = {-6,-8,-4},
+    wierzcholki_drona[4] = {-6,8,4},
+    wierzcholki_drona[5] = {6,8,4},
+    wierzcholki_drona[6] = {6,-8,4},
+    wierzcholki_drona[7] = {-6,-8,4},
     };
-
     cout << " Dziala " << endl;
-    cout << " Dziala " << endl;
-    cout << "Wierzcholek 1: " << wierzcholki_drona[1]<< endl;
     Dron D1(wierzcholki_drona,{0,0,0},gnuplot);
     D1.rysuj();
     char odczyt;
@@ -62,7 +59,6 @@ int main()
             D1.animacjaObrotu();
             //D1.wez_polozenie();
         }
-        gnuplot->redraw();
     } while (odczyt != 'k');
     //D1.wez_polozenie(); 
 

@@ -8,6 +8,10 @@
 class MacierzObrotu
 {
     public:
+    /*!
+    * \brief Statyczna metoda tworzaca macierz obrotu osi X
+    * \param stopnie - wartosc obrotu macierzy
+    */
         static Macierz<double,3> X(double stopnie){
 
             Macierz<double,3> m = Macierz<double,3>();
@@ -23,7 +27,10 @@ class MacierzObrotu
 
             return m;
         }
-
+    /*!
+    * \brief Statyczna metoda tworzaca macierz obrotu osi Y
+    * \param stopnie - wartosc obrotu macierzy
+    */
         static Macierz<double,3> Y(double stopnie){
 
             Macierz<double,3> m = Macierz<double,3>();
@@ -39,7 +46,10 @@ class MacierzObrotu
 
             return m;
         }
-
+    /*!
+    * \brief Statyczna metoda tworzaca macierz obrotu osi Z
+    * \param stopnie - wartosc obrotu macierzy
+    */
         static Macierz<double,3> Z(double stopnie){
 
             Macierz<double,3> m = Macierz<double,3>();
