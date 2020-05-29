@@ -22,7 +22,7 @@ class Plaszczyzna
     /*!
     * \brief Id plaszczyzny
     */
-    uint id;
+    uint id=1;
     public:
     /*!
     * \brief Usuniety konstruktor bezparametryczny
@@ -36,9 +36,10 @@ class Plaszczyzna
     */
     Plaszczyzna(Wektor3D lewygorny, Wektor3D prawydolny, std::shared_ptr<drawNS::Draw3DAPI> gnuplot);
     /*!
-    * \brief Metoda zmieniajaca kolor plaszczyzny na niebieski
+    * \brief Metoda zmieniajaca kolor plaszczyzny 
+    * \param nowy_kolor - kolor przyjmowany przez plaszczyzne
     */
-    void ustaw_niebieski();
+    void zmien_kolor(char nowy_kolor);
     /*!
     * \brief Metoda rysujaca plaszczyzne
     */

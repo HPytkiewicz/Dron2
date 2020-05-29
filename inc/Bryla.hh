@@ -27,6 +27,10 @@ Wektor3D srodek;
 */
 Macierz<double,3> orientacja;
 /*!
+* \brief Macierz zapasowa orientacji bryly
+*/
+Macierz<double,3> zapasowa_orientacja;
+/*!
 * \brief Kat rotacji wzgledem osi Z
 */
 double katZ;
@@ -53,8 +57,8 @@ Bryla()=delete;
 * \param gnuplot - wskaznik na lacze do gnuplota
 * \param wsp_srodek - wektor polozenia srodka bryly
 */
-Bryla(std::shared_ptr<drawNS::Draw3DAPI> gnuplot, Wektor3D wsp_srodek): lacze(gnuplot), 
-srodek(wsp_srodek) {katZ=0; katX=0; katY=0; id=0; zeruj_orientacje();}
+Bryla(std::shared_ptr<drawNS::Draw3DAPI> gnuplot, Wektor3D wsp_srodek, Macierz<double,3> mac_orientacji): lacze(gnuplot), 
+srodek(wsp_srodek), zapasowa_orientacja(mac_orientacji) {katZ=0; katX=0; katY=0; id=0; zeruj_orientacje();}
 
 /*!
 * \brief Metoda ustawiajaca srodek bryly na podana wartosc
@@ -68,13 +72,12 @@ Wektor3D wez_srodek() const {return srodek;}
 
 /*!
 * \brief Metoda ustawiajaca orientacje na domyslna
-* Domyslna orientacja - {{1,0,0},{0,1,0},{0,0,1}}
 */
 void zeruj_orientacje();
 /*!
 * \brief Metoda ustawiajaca orientacje podana
 */
-void ustaw_orientacje(Macierz<double,3> wsp_orientacja) {orientacja = wsp_orientacja;}
+void ustaw_orientacje(Macierz<double,3> mac_orientacji) {zapasowa_orientacja = mac_orientacji;}
 /*!
 * \brief Metoda zwracajaca orientacje bryly
 */
@@ -92,6 +95,10 @@ void dodaj_katX(double stopnie){this->katX -= stopnie;}
 */
 void dodaj_katY(double stopnie){this->katX += stopnie;}
 
+/*!
+* \brief Metoda wypisujaca wspolrzedne
+*/
+void wyswietl_wspolrzedne();
 };
 
 #endif

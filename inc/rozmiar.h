@@ -1,6 +1,7 @@
 #ifndef ROZMIAR_H
 #define ROZMIAR_H
 
+
 #define SKIP 14
 
 #define EPSILON 0.0001
@@ -11,9 +12,5 @@
 #define ERRORNOANSWER "Error: Uklad sprzeczny lub nieskonczenie wiele odpowiedzi. "
 #define ERRORNAME "Error: Niepoprawna nazwa pliku."
 #define ERROREOF "Error: Koniec pliku."
-
-enum Wymiar{WymiarX, WymiarY, WymiarZ};
-enum axis{x,y,z};
-
 
 #endif

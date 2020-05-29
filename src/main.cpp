@@ -21,13 +21,14 @@ int main()
     gnuplot->change_ref_time_ms(0);
 
     Plaszczyzna Dno({-24,24,-24},{24,-24,-24}, gnuplot);
-    Plaszczyzna Woda({-24,24,24},{24,-24,24},gnuplot);
+    Plaszczyzna Woda({-24,24,24},{24,-24,24}, gnuplot);
     
-    Dno.rysuj_plaszczyzne(); 
     Woda.rysuj_plaszczyzne();
-    Woda.ustaw_niebieski();
+    Woda.rysuj_plaszczyzne();
+    Dno.rysuj_plaszczyzne();
+    Woda.zmien_kolor('1');
+    Dno.zmien_kolor('2');
 
-    cout << " Dziala " << endl;
     vector<Wektor3D> wierzcholki_drona;
     wierzcholki_drona.reserve(8);
     wierzcholki_drona = 
@@ -41,26 +42,30 @@ int main()
     wierzcholki_drona[6] = {6,-8,4},
     wierzcholki_drona[7] = {-6,-8,4},
     };
-    cout << " Dziala " << endl;
-    Dron D1(wierzcholki_drona,{0,0,0},gnuplot);
+
+    Macierz<double,3> bazowa_macierz;
+    bazowa_macierz[0]={1,0,0};
+    bazowa_macierz[1]={0,1,0};
+    bazowa_macierz[2]={0,0,1};
+
+    Dron D1(wierzcholki_drona,{0,0,0},gnuplot, bazowa_macierz);
     D1.rysuj();
     char odczyt;
     do{
-        //D1.wez_polozenie();
+        D1.wyswietl_wspolrzedne();
         cout << endl << "Wczytaj swoj ruch: " << endl;
         cin >> odczyt;
         if(odczyt=='w')
         {
             D1.animacjaNaprzod();
-            //D1.wez_polozenie();
+            D1.wyswietl_wspolrzedne();
         }
         if(odczyt=='r')
         {
             D1.animacjaObrotu();
-            //D1.wez_polozenie();
+            D1.wyswietl_wspolrzedne();
         }
     } while (odczyt != 'k');
-    //D1.wez_polozenie(); 
 
     return 0;
 }

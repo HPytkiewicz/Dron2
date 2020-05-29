@@ -32,8 +32,8 @@ class Prostopadloscian : public Bryla, public MacierzObrotu
     /*!
     * \brief KOnstruktor przyjmujacy za argumenty wierzcholki i srodek prostopadloscianu oraz wskaznik na lacze do gnuplota
     */
-    Prostopadloscian(vector<Wektor3D> nowe_wierzcholki, Wektor3D nowy_srodek, std::shared_ptr<drawNS::Draw3DAPI> gnuplot):
-    Bryla(gnuplot, nowy_srodek)
+    Prostopadloscian(vector<Wektor3D> nowe_wierzcholki, Wektor3D nowy_srodek, Macierz<double,3> mac_orientacji, std::shared_ptr<drawNS::Draw3DAPI> gnuplot):
+    Bryla(gnuplot, nowy_srodek, mac_orientacji)
     {
         wierzcholki_lokalnie.reserve(8);
         wierzcholki_globalnie.reserve(8);
@@ -44,7 +44,8 @@ class Prostopadloscian : public Bryla, public MacierzObrotu
     /*!
     * \brief KOnstruktor przyjmujacy srodek prostopadloscianu oraz wskaznik na lacze do gnuplota, uzywany do tymczasowego tworzenia srub
     */
-    Prostopadloscian(Wektor3D nowy_srodek, std::shared_ptr<drawNS::Draw3DAPI> gnuplot): Bryla(gnuplot, nowy_srodek)
+    Prostopadloscian(Wektor3D nowy_srodek, std::shared_ptr<drawNS::Draw3DAPI> gnuplot, Macierz<double,3> mac_orientacji): 
+    Bryla(gnuplot, nowy_srodek, mac_orientacji)
     {
         vector<Wektor3D> wierzcholki_sruby;
         wierzcholki_sruby.reserve(8);
@@ -63,7 +64,12 @@ class Prostopadloscian : public Bryla, public MacierzObrotu
     wierzcholki_lokalnie = wierzcholki_sruby;
     zapasowe_lokalne = wierzcholki_sruby;
     dodaj_katY(90);
-}   
+    Macierz<double,3> macierzpom;
+    macierzpom[0]= {0,-1,0};
+    macierzpom[1]= {1,0,0};
+    macierzpom[2]= {0,0,1};
+    ustaw_orientacje(macierzpom);
+    }   
     /*!
     * \brief Metoda rysujaca prostopadlsocian
     */

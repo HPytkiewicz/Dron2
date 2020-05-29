@@ -24,6 +24,8 @@ Prostopadloscian SrubaL;
     */
 Prostopadloscian SrubaP;
 
+Macierz<double,3> bazowa_macierz;
+
 public:
 /*!
     * \brief Usuniety konstruktor bezparametryczny
@@ -35,8 +37,9 @@ Dron()=delete;
     * \param nowy_srodek - wspolrzedne srodka drona
     * \param gnuplot - wskaznik na lacze do gnuplota
     */
-Dron(vector<Wektor3D> nowe_wierzcholki, Wektor3D nowy_srodek, std::shared_ptr<drawNS::Draw3DAPI> gnuplot): Prostopadloscian(nowe_wierzcholki, 
-nowy_srodek, gnuplot), SrubaL({-3,-9.5,0}, gnuplot), SrubaP({3,-9.5,0}, gnuplot)
+Dron(vector<Wektor3D> nowe_wierzcholki, Wektor3D nowy_srodek, std::shared_ptr<drawNS::Draw3DAPI> gnuplot, Macierz<double,3> mac_orientacji): 
+Prostopadloscian(nowe_wierzcholki,nowy_srodek,mac_orientacji,gnuplot), 
+SrubaL({-3,-9.5,0}, gnuplot, mac_orientacji), SrubaP({3,-9.5,0}, gnuplot, mac_orientacji)
 {
 (*this).zeruj_lokalne();
 
