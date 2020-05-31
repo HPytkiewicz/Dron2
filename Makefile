@@ -3,8 +3,8 @@ CPPFLAGS= -c -g -Iinc -Wall -pedantic -std=c++17
 __start__: DronPodwodny
 	./DronPodwodny
 
-DronPodwodny: obj/Dr3D_gnuplot_api.o obj/main.o obj/Wektor.o obj/Macierz.o obj/Dron.o obj/Plaszczyzna.o obj/Bryla.o obj/Prostopadloscian.o
-	g++ -o DronPodwodny obj/main.o obj/Dr3D_gnuplot_api.o obj/Wektor.o obj/Macierz.o obj/Dron.o obj/Plaszczyzna.o obj/Bryla.o obj/Prostopadloscian.o -lpthread
+DronPodwodny: obj/Dr3D_gnuplot_api.o obj/main.o obj/Wektor.o obj/Macierz.o obj/Dron.o obj/Plaszczyzna.o obj/Bryla.o obj/Prostopadloscian.o obj/Graniastoslup.o
+	g++ -o DronPodwodny obj/main.o obj/Dr3D_gnuplot_api.o obj/Wektor.o obj/Macierz.o obj/Dron.o obj/Plaszczyzna.o obj/Bryla.o obj/Prostopadloscian.o obj/Graniastoslup.o -lpthread
 
 obj/main.o: src/main.cpp inc/Dr3D_gnuplot_api.hh
 	g++ ${CPPFLAGS} -o obj/main.o src/main.cpp
@@ -17,6 +17,9 @@ obj/Plaszczyzna.o: src/Plaszczyzna.cpp inc/Plaszczyzna.hh
 
 obj/Dr3D_gnuplot_api.o: src/Dr3D_gnuplot_api.cpp inc/Dr3D_gnuplot_api.hh
 	g++ ${CPPFLAGS} -o obj/Dr3D_gnuplot_api.o src/Dr3D_gnuplot_api.cpp
+
+obj/Graniastoslup.o: src/Graniastoslup.cpp inc/Graniastoslup.hh
+	g++ ${CPPFLAGS} -o obj/Graniastoslup.o src/Graniastoslup.cpp
 
 obj/Prostopadloscian.o: src/Prostopadloscian.cpp inc/Prostopadloscian.hh
 	g++ ${CPPFLAGS} -o obj/Prostopadloscian.o src/Prostopadloscian.cpp

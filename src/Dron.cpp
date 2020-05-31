@@ -6,6 +6,13 @@
 using namespace std;
 using namespace drawNS;
 
+void Dron::stworzDrona()
+{
+    this->rysuj();
+    this->SrubaL.rysuj();
+    this->SrubaP.rysuj();
+}
+
 void Dron::animacjaNaprzod()
 {
     double kat, odleglosc;
@@ -18,31 +25,33 @@ void Dron::animacjaNaprzod()
 
     if(kat!=0)
     {
-    for(int i=0; i<60; i++)
+    for(int i=0; i<90; i++)
     {
-        this->naprzod(0, kat/60);
-        this->skrec();
-        this->rysuj();
-        usleep(100);
-    }
-    }
-
-    for(int i=0; i<60; i++)
-    {
-        this->naprzod(odleglosc/60, 0);
+        this->naprzod(0, kat/90);
         this->animacjaSruby();
         this->skrec();
         this->rysuj();
-        usleep(100);
+        usleep(5);
+    }
+    }
+
+    for(int i=0; i<200; i++)
+    {
+        this->naprzod(odleglosc/200, 0);
+        this->animacjaSruby();
+        this->skrec();
+        this->rysuj();
+        usleep(5);
     }
     if(kat!=0)
     {
-    for(int i=0; i<60; i++)
+    for(int i=0; i<90; i++)
     {
-        this->naprzod(0, -1*kat/60);
+        this->naprzod(0, -1*kat/90);
+        this->animacjaSruby();
         this->skrec();
         this->rysuj();
-        usleep(100);
+        usleep(5);
     }
     }
 }
@@ -71,19 +80,19 @@ void Dron::animacjaObrotu()
         this->skrec();
         this->animacjaSruby();
         this->rysuj();
-        usleep(100);
+        usleep(1);
     }
 }
 
 void Dron::animacjaSruby()
 {
-    Wektor3D srodek_lewej = {-3,-9.5,0};
-    Wektor3D srodek_prawej = {3,-9.5,0};
+    Wektor3D srodek_lewej = {-3,-8,0};
+    Wektor3D srodek_prawej = {3,-8,0};
     this->SrubaL.ustaw_srodek(this->srodek + this->orientacja*srodek_lewej);
     this->SrubaP.ustaw_srodek(this->srodek + this->orientacja*srodek_prawej);
-    this->SrubaL.dodaj_katZ(10);
+    this->SrubaL.dodaj_katX(10);
     this->SrubaL.skrec();
-    this->SrubaP.dodaj_katZ(10);
+    this->SrubaP.dodaj_katX(10);
     this->SrubaP.skrec();
     this->SrubaL.rysuj();
     this->SrubaP.rysuj();

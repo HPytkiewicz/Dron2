@@ -99,6 +99,7 @@ void dodaj_katY(double stopnie){this->katX += stopnie;}
 * \brief Metoda wypisujaca wspolrzedne
 */
 void wyswietl_wspolrzedne();
+
 };
 
 #endif

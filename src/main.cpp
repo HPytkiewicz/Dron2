@@ -3,6 +3,7 @@
 #include "Wektor.hh"
 #include "Macierz.hh"
 #include "Plaszczyzna.hh"
+#include "Graniastoslup.hh"
 #include "Dron.hh"
 using namespace std;
 using namespace drawNS;
@@ -48,22 +49,26 @@ int main()
     bazowa_macierz[1]={0,1,0};
     bazowa_macierz[2]={0,0,1};
 
+    vector<Dron> kolekcja_dronow;
     Dron D1(wierzcholki_drona,{0,0,0},gnuplot, bazowa_macierz);
-    D1.rysuj();
+    kolekcja_dronow.push_back(D1);
+    kolekcja_dronow[0].stworzDrona();
+
+    
     char odczyt;
     do{
-        D1.wyswietl_wspolrzedne();
+        kolekcja_dronow[0].wyswietl_wspolrzedne();
         cout << endl << "Wczytaj swoj ruch: " << endl;
         cin >> odczyt;
         if(odczyt=='w')
         {
-            D1.animacjaNaprzod();
-            D1.wyswietl_wspolrzedne();
+            kolekcja_dronow[0].animacjaNaprzod();
+            kolekcja_dronow[0].wyswietl_wspolrzedne();
         }
         if(odczyt=='r')
         {
-            D1.animacjaObrotu();
-            D1.wyswietl_wspolrzedne();
+            kolekcja_dronow[0].animacjaObrotu();
+            kolekcja_dronow[0].wyswietl_wspolrzedne();
         }
     } while (odczyt != 'k');
 

@@ -59,7 +59,7 @@ class Prostopadloscian : public Bryla, public MacierzObrotu
         wierzcholki_sruby[4] = {-1,1.5,1},
         wierzcholki_sruby[5] = {1,1.5,1},
         wierzcholki_sruby[6] = {1,-1.5,1},
-        wierzcholki_sruby[0] = {-1,-1.5,1},
+        wierzcholki_sruby[7] = {-1,-1.5,1},
         };
     wierzcholki_lokalnie = wierzcholki_sruby;
     zapasowe_lokalne = wierzcholki_sruby;

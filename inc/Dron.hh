@@ -10,6 +10,7 @@
 #include "MacierzObrotu.hh"
 #include "Wektor3D.hh"
 #include "Prostopadloscian.hh"
+#include "Graniastoslup.hh"
 
 using namespace std;
 using namespace drawNS;
@@ -18,11 +19,11 @@ class Dron : public Prostopadloscian {
     /*!
     * \brief Lewa sruba drona
     */
-Prostopadloscian SrubaL;
+Graniastoslup SrubaL;
 /*!
     * \brief Prawa sruba drona
     */
-Prostopadloscian SrubaP;
+Graniastoslup SrubaP;
 
 Macierz<double,3> bazowa_macierz;
 
@@ -39,7 +40,7 @@ Dron()=delete;
     */
 Dron(vector<Wektor3D> nowe_wierzcholki, Wektor3D nowy_srodek, std::shared_ptr<drawNS::Draw3DAPI> gnuplot, Macierz<double,3> mac_orientacji): 
 Prostopadloscian(nowe_wierzcholki,nowy_srodek,mac_orientacji,gnuplot), 
-SrubaL({-3,-9.5,0}, gnuplot, mac_orientacji), SrubaP({3,-9.5,0}, gnuplot, mac_orientacji)
+SrubaL({-3,-8,0}, gnuplot, mac_orientacji), SrubaP({3,-8,0}, gnuplot, mac_orientacji)
 {
 (*this).zeruj_lokalne();
 
@@ -50,6 +51,10 @@ this->srodek={0,0,0};
 this->lacze=gnuplot;
 }
 
+/*!
+    * \brief Metoda tworzaca drona
+    */
+void stworzDrona();
 /*!
     * \brief Metoda animujaca obrot drona
     */
