@@ -5,6 +5,7 @@
 #include "Plaszczyzna.hh"
 #include "Graniastoslup.hh"
 #include "Dron.hh"
+#include "InterfejsDrona.hh"
 using namespace std;
 using namespace drawNS;
 
@@ -44,6 +45,20 @@ int main()
     wierzcholki_drona[7] = {-6,-8,4},
     };
 
+    vector<Wektor3D> wierzcholki_drona2;
+    wierzcholki_drona2.reserve(8);
+    wierzcholki_drona2 = 
+    {
+    wierzcholki_drona2[0] = {-3,4,-2},
+    wierzcholki_drona2[1] = {3,4,-2},
+    wierzcholki_drona2[2] = {3,-4,-2},
+    wierzcholki_drona2[3] = {-3,-4,-2},
+    wierzcholki_drona2[4] = {-3,4,2},
+    wierzcholki_drona2[5] = {3,4,2},
+    wierzcholki_drona2[6] = {3,-4,2},
+    wierzcholki_drona2[7] = {-3,-4,2},
+    };
+
     Macierz<double,3> bazowa_macierz;
     bazowa_macierz[0]={1,0,0};
     bazowa_macierz[1]={0,1,0};
@@ -53,22 +68,56 @@ int main()
     Dron D1(wierzcholki_drona,{0,0,0},gnuplot, bazowa_macierz);
     kolekcja_dronow.push_back(D1);
     kolekcja_dronow[0].stworzDrona();
-
+    int id=0;
     
     char odczyt;
     do{
-        kolekcja_dronow[0].wyswietl_wspolrzedne();
-        cout << endl << "Wczytaj swoj ruch: " << endl;
+        cout << "Wczytaj swoj ruch (m dla menu): ";
         cin >> odczyt;
-        if(odczyt=='w')
+        if(odczyt == 'm')
         {
-            kolekcja_dronow[0].animacjaNaprzod();
-            kolekcja_dronow[0].wyswietl_wspolrzedne();
+            cout << endl << "Opcje programu: " << endl;
+            cout << endl << "m - wyswietl menu " << endl;
+            cout << endl << "w - ruch na wprost z podaniem kata wznoszenia/opadania " << endl;
+            cout << endl << "r - obrot drona wokol osi Z " << endl;
+            cout << endl << "s - stworz nowego drona " << endl;
+            cout << endl << "p - przelacz sie na sterowanie innego drona " << endl;
+            cout << endl << "q - wyswietl informacje o obecnym dronie " << endl;
         }
-        if(odczyt=='r')
+        if(odczyt == 'w')
         {
-            kolekcja_dronow[0].animacjaObrotu();
-            kolekcja_dronow[0].wyswietl_wspolrzedne();
+            kolekcja_dronow[id].animacjaNaprzod();
+        }
+        if(odczyt == 'r')
+        {
+            kolekcja_dronow[id].animacjaObrotu();
+        }
+        if(odczyt == 's')
+        {
+            cout << "Podaj nowe wierzcholki: " << endl;
+            Wektor3D nowy_srodek;
+            cout << "Podaj nowy srodek: " << endl;
+            cout << "X " << endl;
+            cin >> nowy_srodek[0];
+            cout << "Y " << endl;
+            cin >> nowy_srodek[1];
+            cout << "Z " << endl;
+            cin >> nowy_srodek[2];
+            Dron Dpom(wierzcholki_drona2, nowy_srodek, gnuplot, bazowa_macierz);
+            kolekcja_dronow.push_back(Dpom);
+            kolekcja_dronow[id+1].stworzDrona();
+        }
+        if(odczyt == 'p')
+        {
+            cout << "Podaj ktorym dronem chcesz sterowac: " << endl;
+            int pom;
+            cin >> pom;
+            id = pom;
+        }
+        if(odczyt == 'q')
+        {
+            kolekcja_dronow[id].wyswietl_wspolrzedne();
+            cout << "Numer obecnego drona: " << id << endl;
         }
     } while (odczyt != 'k');
 

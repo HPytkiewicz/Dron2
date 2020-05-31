@@ -11,11 +11,12 @@
 #include "Wektor3D.hh"
 #include "Prostopadloscian.hh"
 #include "Graniastoslup.hh"
+#include "InterfejsDrona.hh"
 
 using namespace std;
 using namespace drawNS;
 
-class Dron : public Prostopadloscian {
+class Dron : public Prostopadloscian, public InterfejsDrona {
     /*!
     * \brief Lewa sruba drona
     */
@@ -54,19 +55,19 @@ this->lacze=gnuplot;
 /*!
     * \brief Metoda tworzaca drona
     */
-void stworzDrona();
+void stworzDrona() override;
 /*!
     * \brief Metoda animujaca obrot drona
     */
-void animacjaObrotu();
+void animacjaObrotu() override;
 /*!
     * \brief Metoda animujaca ruch drona
     */
-void animacjaNaprzod();
+void animacjaNaprzod() override;
 /*!
     * \brief Metoda animujaca ruch srub
     */
-void animacjaSruby();
+void animacjaSruby() override;
 
 };
 
