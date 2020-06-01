@@ -32,13 +32,27 @@ class Prostopadloscian : public Bryla, public MacierzObrotu
     /*!
     * \brief KOnstruktor przyjmujacy za argumenty wierzcholki i srodek prostopadloscianu oraz wskaznik na lacze do gnuplota
     */
-    Prostopadloscian(vector<Wektor3D> nowe_wierzcholki, Wektor3D nowy_srodek, Macierz<double,3> mac_orientacji, std::shared_ptr<drawNS::Draw3DAPI> gnuplot):
+    Prostopadloscian(double skala, Wektor3D nowy_srodek, Macierz<double,3> mac_orientacji, std::shared_ptr<drawNS::Draw3DAPI> gnuplot):
     Bryla(gnuplot, nowy_srodek, mac_orientacji)
     {
-        wierzcholki_lokalnie.reserve(8);
+        vector<Wektor3D> wierzcholki_sruby;
+        wierzcholki_sruby.reserve(8);
         wierzcholki_globalnie.reserve(8);
-        for(int i=0; i<8; i++)
-        this->wierzcholki_lokalnie[i]=this->wierzcholki_lokalnie[i]*2;
+        wierzcholki_sruby = 
+        {
+        wierzcholki_sruby[0] = {-6,8,-4},
+        wierzcholki_sruby[1] = {6,8,-4},
+        wierzcholki_sruby[2] = {6,-8,-4},
+        wierzcholki_sruby[3] = {-6,-8,-4},
+        wierzcholki_sruby[4] = {-6,8,4},
+        wierzcholki_sruby[5] = {6,8,4},
+        wierzcholki_sruby[6] = {6,-8,4},
+        wierzcholki_sruby[7] = {-6,-8,4},
+        };
+    for(int i=0;i<8;i++)
+        wierzcholki_sruby[i] = wierzcholki_sruby[i]*skala;
+    wierzcholki_lokalnie = wierzcholki_sruby;
+    zapasowe_lokalne = wierzcholki_sruby;
     }
 
     /*!

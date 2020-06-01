@@ -31,7 +31,7 @@ int main()
     Woda.zmien_kolor('1');
     Dno.zmien_kolor('2');
 
-    vector<Wektor3D> wierzcholki_drona;
+    /*vector<Wektor3D> wierzcholki_drona;
     wierzcholki_drona.reserve(8);
     wierzcholki_drona = 
     {
@@ -58,14 +58,14 @@ int main()
     wierzcholki_drona2[6] = {3,-4,2},
     wierzcholki_drona2[7] = {-3,-4,2},
     };
-
+    */
     Macierz<double,3> bazowa_macierz;
     bazowa_macierz[0]={1,0,0};
     bazowa_macierz[1]={0,1,0};
     bazowa_macierz[2]={0,0,1};
 
     vector<Dron> kolekcja_dronow;
-    Dron D1(wierzcholki_drona,{0,0,0},gnuplot, bazowa_macierz);
+    Dron D1(2,{0,0,0},gnuplot, bazowa_macierz);
     kolekcja_dronow.push_back(D1);
     kolekcja_dronow[0].stworzDrona();
     int id=0;
@@ -94,16 +94,18 @@ int main()
         }
         if(odczyt == 's')
         {
-            cout << "Podaj nowe wierzcholki: " << endl;
-            Wektor3D nowy_srodek;
+            cout << "Podaj skale drona: " << endl;
+            double skala;
+            cin >> skala;
             cout << "Podaj nowy srodek: " << endl;
+            Wektor3D nowy_srodek;
             cout << "X " << endl;
             cin >> nowy_srodek[0];
             cout << "Y " << endl;
             cin >> nowy_srodek[1];
             cout << "Z " << endl;
             cin >> nowy_srodek[2];
-            Dron Dpom(wierzcholki_drona2, nowy_srodek, gnuplot, bazowa_macierz);
+            Dron Dpom(skala,nowy_srodek, gnuplot, bazowa_macierz);
             kolekcja_dronow.push_back(Dpom);
             kolekcja_dronow[id+1].stworzDrona();
         }

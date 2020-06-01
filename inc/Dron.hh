@@ -39,8 +39,8 @@ Dron()=delete;
     * \param nowy_srodek - wspolrzedne srodka drona
     * \param gnuplot - wskaznik na lacze do gnuplota
     */
-Dron(vector<Wektor3D> nowe_wierzcholki, Wektor3D nowy_srodek, std::shared_ptr<drawNS::Draw3DAPI> gnuplot, Macierz<double,3> mac_orientacji): 
-Prostopadloscian(nowe_wierzcholki,nowy_srodek,mac_orientacji,gnuplot), 
+Dron(double nowa_skala,Wektor3D nowy_srodek, std::shared_ptr<drawNS::Draw3DAPI> gnuplot, Macierz<double,3> mac_orientacji): 
+Prostopadloscian(nowa_skala,nowy_srodek,mac_orientacji,gnuplot), 
 SrubaL({-3,-8,0}, gnuplot, mac_orientacji), SrubaP({3,-8,0}, gnuplot, mac_orientacji)
 {
 (*this).zeruj_lokalne();
