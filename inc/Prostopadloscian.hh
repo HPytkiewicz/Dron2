@@ -37,8 +37,8 @@ class Prostopadloscian : public Bryla, public MacierzObrotu
     {
         wierzcholki_lokalnie.reserve(8);
         wierzcholki_globalnie.reserve(8);
-        wierzcholki_lokalnie = nowe_wierzcholki;
-        zapasowe_lokalne = nowe_wierzcholki;
+        for(int i=0; i<8; i++)
+        this->wierzcholki_lokalnie[i]=this->wierzcholki_lokalnie[i]*2;
     }
 
     /*!
