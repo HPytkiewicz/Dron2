@@ -19,11 +19,11 @@ void waitKey()
 
 int main()
 {
-    std::shared_ptr<drawNS::Draw3DAPI> gnuplot(new APIGnuPlot3D(-25,25,-25,25,-25,25));
+    std::shared_ptr<drawNS::Draw3DAPI> gnuplot(new APIGnuPlot3D(-40,40,-40,40,-40,40));
     gnuplot->change_ref_time_ms(0);
 
-    Plaszczyzna Dno({-24,24,-24},{24,-24,-24}, gnuplot);
-    Plaszczyzna Woda({-24,24,24},{24,-24,24}, gnuplot);
+    Plaszczyzna Dno({-39,39,-39},{39,-39,-39}, gnuplot);
+    Plaszczyzna Woda({-39,39,39},{39,-39,39}, gnuplot);
     
     Woda.rysuj_plaszczyzne();
     Woda.rysuj_plaszczyzne();
@@ -65,10 +65,12 @@ int main()
     bazowa_macierz[2]={0,0,1};
 
     vector<Dron> kolekcja_dronow;
-    Dron D1(2,{0,0,0},gnuplot, bazowa_macierz);
+    Dron D1(1,{0,0,0},gnuplot, bazowa_macierz);
     kolekcja_dronow.push_back(D1);
+    int ilosc_dronow =0;
     kolekcja_dronow[0].stworzDrona();
-    int id=0;
+    ilosc_dronow++;
+    int numer_drona = 0;
     
     char odczyt;
     do{
@@ -86,11 +88,11 @@ int main()
         }
         if(odczyt == 'w')
         {
-            kolekcja_dronow[id].animacjaNaprzod();
+            kolekcja_dronow[numer_drona].animacjaNaprzod();
         }
         if(odczyt == 'r')
         {
-            kolekcja_dronow[id].animacjaObrotu();
+            kolekcja_dronow[numer_drona].animacjaObrotu();
         }
         if(odczyt == 's')
         {
@@ -106,20 +108,21 @@ int main()
             cout << "Z " << endl;
             cin >> nowy_srodek[2];
             Dron Dpom(skala,nowy_srodek, gnuplot, bazowa_macierz);
+            ilosc_dronow++;
             kolekcja_dronow.push_back(Dpom);
-            kolekcja_dronow[id+1].stworzDrona();
+            kolekcja_dronow[ilosc_dronow-1].stworzDrona();
         }
         if(odczyt == 'p')
         {
             cout << "Podaj ktorym dronem chcesz sterowac: " << endl;
             int pom;
             cin >> pom;
-            id = pom;
+            numer_drona = pom;
         }
         if(odczyt == 'q')
         {
-            kolekcja_dronow[id].wyswietl_wspolrzedne();
-            cout << "Numer obecnego drona: " << id << endl;
+            kolekcja_dronow[numer_drona].wyswietl_wspolrzedne();
+            cout << "Numer obecnego drona: " << numer_drona << endl;
         }
     } while (odczyt != 'k');
 

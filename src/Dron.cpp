@@ -9,6 +9,13 @@ using namespace drawNS;
 void Dron::stworzDrona()
 {
     this->rysuj();
+    double x = -1*abs(this->zapasowe_lokalne[0][0]*2)/3;
+    double y = -1*abs(this->zapasowe_lokalne[0][1]);
+    double z = abs(this->zapasowe_lokalne[0][2])/2;
+    this->SrubaL.ustaw_srodek({-x,y,z});
+    this->SrubaP.ustaw_srodek({x,y,z});
+    this->SrubaL.ustaw_srodek(this->srodek + this->orientacja*this->SrubaL.wez_srodek());
+    this->SrubaP.ustaw_srodek(this->srodek + this->orientacja*this->SrubaP.wez_srodek());
     this->SrubaL.rysuj();
     this->SrubaP.rysuj();
 }
@@ -86,10 +93,13 @@ void Dron::animacjaObrotu()
 
 void Dron::animacjaSruby()
 {
-    Wektor3D srodek_lewej = {-3,-8,0};
-    Wektor3D srodek_prawej = {3,-8,0};
-    this->SrubaL.ustaw_srodek(this->srodek + this->orientacja*srodek_lewej);
-    this->SrubaP.ustaw_srodek(this->srodek + this->orientacja*srodek_prawej);
+    double x = -1*abs(this->zapasowe_lokalne[0][0]*2)/3;
+    double y = -1*abs(this->zapasowe_lokalne[0][1]);
+    double z = abs(this->zapasowe_lokalne[0][2])/2;
+    this->SrubaL.ustaw_srodek({-x,y,z});
+    this->SrubaP.ustaw_srodek({x,y,z});
+    this->SrubaL.ustaw_srodek(this->srodek + this->orientacja*this->SrubaL.wez_srodek());
+    this->SrubaP.ustaw_srodek(this->srodek + this->orientacja*this->SrubaP.wez_srodek());
     this->SrubaL.dodaj_katX(10);
     this->SrubaL.skrec();
     this->SrubaP.dodaj_katX(10);

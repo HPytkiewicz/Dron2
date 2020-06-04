@@ -44,7 +44,7 @@ class Graniastoslup : public Bryla, public MacierzObrotu
     /*!
     * \brief KOnstruktor przyjmujacy srodek graniastoslupu oraz wskaznik na lacze do gnuplota, uzywany do tymczasowego tworzenia srub
     */
-    Graniastoslup(Wektor3D nowy_srodek, std::shared_ptr<drawNS::Draw3DAPI> gnuplot, Macierz<double,3> mac_orientacji): 
+    Graniastoslup(double skala,Wektor3D nowy_srodek, std::shared_ptr<drawNS::Draw3DAPI> gnuplot, Macierz<double,3> mac_orientacji): 
     Bryla(gnuplot, nowy_srodek, mac_orientacji)
     {
         vector<Wektor3D> wierzcholki_sruby;
@@ -65,6 +65,8 @@ class Graniastoslup : public Bryla, public MacierzObrotu
         wierzcholki_sruby[10] = {-1.6,0,1.6},
         wierzcholki_sruby[11] = {-0.8,1.6,1.6},
         };
+        for(int i=0;i<12;i++)
+            wierzcholki_sruby[i] = wierzcholki_sruby[i]*skala;
     wierzcholki_lokalnie = wierzcholki_sruby;
     zapasowe_lokalne = wierzcholki_sruby;
     dodaj_katY(90);
@@ -73,6 +75,7 @@ class Graniastoslup : public Bryla, public MacierzObrotu
     macierzpom[1]= {1,0,0};
     macierzpom[2]= {0,0,1};
     ustaw_orientacje(macierzpom);
+
     }   
     /*!
     * \brief Metoda rysujaca graniastoslup

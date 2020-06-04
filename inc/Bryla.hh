@@ -85,6 +85,7 @@ Macierz<double,3> wez_orientacje() const{return orientacja;}
 /*!
 * \brief Metoda dodajaca kat do orientacji Z
 */
+uint wez_id() const {return id;}
 void dodaj_katZ(double stopnie){this->katZ += stopnie;}
 /*!
 * \brief Metoda dodajaca kat do orientacji X

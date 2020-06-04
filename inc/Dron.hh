@@ -41,13 +41,14 @@ Dron()=delete;
     */
 Dron(double nowa_skala,Wektor3D nowy_srodek, std::shared_ptr<drawNS::Draw3DAPI> gnuplot, Macierz<double,3> mac_orientacji): 
 Prostopadloscian(nowa_skala,nowy_srodek,mac_orientacji,gnuplot), 
-SrubaL({-3,-8,0}, gnuplot, mac_orientacji), SrubaP({3,-8,0}, gnuplot, mac_orientacji)
+SrubaL(nowa_skala,{-3,-8,0}, gnuplot, mac_orientacji),
+SrubaP(nowa_skala,{3,-8,0}, gnuplot, mac_orientacji)
 {
 (*this).zeruj_lokalne();
 
 (*this).zeruj_orientacje();
 
-this->srodek={0,0,0};
+this->srodek=nowy_srodek;
 
 this->lacze=gnuplot;
 }
