@@ -116,6 +116,11 @@ class Prostopadloscian : public Bryla, public MacierzObrotu
     * \param katpom - kat pomocniczy obracajacy prostopadlsocian wedlug osi X
     */
     void naprzod(double odleglosc, double katpom);
+
+    double wez_promien()
+    {
+        return sqrt(pow(this->zapasowe_lokalne[0][0],2)+pow(this->zapasowe_lokalne[0][1],2)+pow(this->zapasowe_lokalne[0][2],2));
+    }
 };
 
 #endif

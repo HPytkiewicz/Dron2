@@ -85,7 +85,6 @@ Macierz<double,3> wez_orientacje() const{return orientacja;}
 /*!
 * \brief Metoda dodajaca kat do orientacji Z
 */
-uint wez_id() const {return id;}
 void dodaj_katZ(double stopnie){this->katZ += stopnie;}
 /*!
 * \brief Metoda dodajaca kat do orientacji X
@@ -96,10 +95,6 @@ void dodaj_katX(double stopnie){this->katX -= stopnie;}
 */
 void dodaj_katY(double stopnie){this->katX += stopnie;}
 
-/*!
-* \brief Metoda wypisujaca wspolrzedne
-*/
-void wyswietl_wspolrzedne();
 
 };
 

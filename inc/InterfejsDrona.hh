@@ -28,7 +28,14 @@ virtual void animacjaNaprzod() = 0;
     * \brief Wirtualna metoda animujaca ruch srub
     */
 virtual void animacjaSruby() = 0;
+/*!
+* \brief Wirtualna etoda wypisujaca wspolrzedne
+*/
+virtual void wyswietl_wspolrzedne() = 0;
 
+virtual uint wez_id() = 0;
+
+virtual double wez_promien() = 0;
 };
 
 #endif

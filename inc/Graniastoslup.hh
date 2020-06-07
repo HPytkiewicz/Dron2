@@ -52,7 +52,7 @@ class Graniastoslup : public Bryla, public MacierzObrotu
         wierzcholki_globalnie.reserve(12);
         wierzcholki_sruby = 
         {
-        wierzcholki_sruby[0] = {0.8,1.6,-2},
+        wierzcholki_sruby[0] = {0.8,1.6,-1.6},
         wierzcholki_sruby[1] = {1.6,0,-1.6},
         wierzcholki_sruby[2] = {0.8,-1.6,-1.6},
         wierzcholki_sruby[3] = {-0.8,-1.6,-1.6},

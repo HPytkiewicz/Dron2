@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <memory>
 #include "Dr3D_gnuplot_api.hh"
 #include "Draw3D_api_interface.hh"
 #include "Wektor.hh"
@@ -16,6 +18,8 @@ void waitKey()
         std::cout << "\n Press a key to continue..." << std::endl;
     } while (cin.get() != '\n');
 }
+
+vector<shared_ptr<InterfejsDrona>> kolekcja_dronow;
 
 int main()
 {
@@ -64,13 +68,16 @@ int main()
     bazowa_macierz[1]={0,1,0};
     bazowa_macierz[2]={0,0,1};
 
-    vector<Dron> kolekcja_dronow;
-    Dron D1(1,{0,0,0},gnuplot, bazowa_macierz);
+    Wektor3D bazowy_srodek;
+    bazowy_srodek[0]=0;
+    bazowy_srodek[1]=0;
+    bazowy_srodek[2]=0;
+
+    vector<std::shared_ptr<InterfejsDrona>> kolekcja_dronow;
+    std::shared_ptr<InterfejsDrona> D1 = std::make_shared<Dron>(1,bazowy_srodek,gnuplot, bazowa_macierz);
     kolekcja_dronow.push_back(D1);
-    int ilosc_dronow =0;
-    kolekcja_dronow[0].stworzDrona();
-    ilosc_dronow++;
-    int numer_drona = 0;
+    uint dron_id = 0;
+    kolekcja_dronow[dron_id]->stworzDrona();
     
     char odczyt;
     do{
@@ -88,17 +95,23 @@ int main()
         }
         if(odczyt == 'w')
         {
-            kolekcja_dronow[numer_drona].animacjaNaprzod();
+            kolekcja_dronow[dron_id]->animacjaNaprzod();
         }
         if(odczyt == 'r')
         {
-            kolekcja_dronow[numer_drona].animacjaObrotu();
+            kolekcja_dronow[dron_id]->animacjaObrotu();
         }
         if(odczyt == 's')
         {
-            cout << "Podaj skale drona: " << endl;
+            for(uint i=0; i<kolekcja_dronow.size(); i++)
+            {
+                cout << "Dron " << i << " Id drona: " << kolekcja_dronow[i]->wez_id() << endl;
+            }
             double skala;
+            cout << "Podaj skale drona: " << endl;
+            do{
             cin >> skala;
+            }while(skala<=0);
             cout << "Podaj nowy srodek: " << endl;
             Wektor3D nowy_srodek;
             cout << "X " << endl;
@@ -107,22 +120,28 @@ int main()
             cin >> nowy_srodek[1];
             cout << "Z " << endl;
             cin >> nowy_srodek[2];
-            Dron Dpom(skala,nowy_srodek, gnuplot, bazowa_macierz);
-            ilosc_dronow++;
+            std::shared_ptr<InterfejsDrona> Dpom = std::make_shared<Dron>(skala,nowy_srodek, gnuplot, bazowa_macierz);
             kolekcja_dronow.push_back(Dpom);
-            kolekcja_dronow[ilosc_dronow-1].stworzDrona();
+            kolekcja_dronow.back()->stworzDrona();
         }
         if(odczyt == 'p')
         {
+            for(uint i=0; i<kolekcja_dronow.size(); i++)
+            {
+                cout << "Dron " << i << " Id drona: " << kolekcja_dronow[i]->wez_id() << endl;
+            }
             cout << "Podaj ktorym dronem chcesz sterowac: " << endl;
-            int pom;
+            uint pom;
+            do{
             cin >> pom;
-            numer_drona = pom;
+            }while(pom<0 || pom>kolekcja_dronow.size()-1);
+            dron_id = pom;
         }
         if(odczyt == 'q')
         {
-            kolekcja_dronow[numer_drona].wyswietl_wspolrzedne();
-            cout << "Numer obecnego drona: " << numer_drona << endl;
+            kolekcja_dronow[dron_id]->wyswietl_wspolrzedne();
+            cout << "Numer obecnego drona: " << dron_id << endl;
+            cout << "Promien kolizji drona: " << kolekcja_dronow[dron_id]->wez_promien() << endl;
         }
     } while (odczyt != 'k');
 

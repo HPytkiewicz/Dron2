@@ -69,7 +69,18 @@ void animacjaNaprzod() override;
     * \brief Metoda animujaca ruch srub
     */
 void animacjaSruby() override;
-
+/*!
+* \brief Metoda wypisujaca wspolrzedne
+*/
+void wyswietl_wspolrzedne() override;
+/*!
+* \brief Metoda zwracjaca id drona
+*/
+uint wez_id() override;
+/*!
+* \brief Metoda zwracajaca promien kolizji drona
+*/
+double wez_promien() override;
 };
 
 #endif

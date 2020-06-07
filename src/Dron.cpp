@@ -38,17 +38,17 @@ void Dron::animacjaNaprzod()
         this->animacjaSruby();
         this->skrec();
         this->rysuj();
-        usleep(5);
+        usleep(1);
     }
     }
 
-    for(int i=0; i<200; i++)
+    for(int i=0; i<100; i++)
     {
-        this->naprzod(odleglosc/200, 0);
+        this->naprzod(odleglosc/100, 0);
         this->animacjaSruby();
         this->skrec();
         this->rysuj();
-        usleep(5);
+        usleep(1);
     }
     if(kat!=0)
     {
@@ -58,7 +58,7 @@ void Dron::animacjaNaprzod()
         this->animacjaSruby();
         this->skrec();
         this->rysuj();
-        usleep(5);
+        usleep(1);
     }
     }
 }
@@ -108,3 +108,17 @@ void Dron::animacjaSruby()
     this->SrubaP.rysuj();
 }
 
+void Dron::wyswietl_wspolrzedne()
+{
+    cout << endl << "Orientacja: " << endl << this->wez_orientacje() << endl << "Srodek: " << endl << this->wez_srodek() << endl;
+}
+
+uint Dron::wez_id()
+{
+    return this->id;
+}
+
+double Dron::wez_promien()
+{
+    return sqrt(pow(this->zapasowe_lokalne[0][0],2)+pow(this->zapasowe_lokalne[0][1],2)+pow(this->zapasowe_lokalne[0][2],2));
+}
