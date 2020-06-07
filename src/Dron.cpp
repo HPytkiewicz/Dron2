@@ -122,3 +122,8 @@ double Dron::wez_promien()
 {
     return sqrt(pow(this->zapasowe_lokalne[0][0],2)+pow(this->zapasowe_lokalne[0][1],2)+pow(this->zapasowe_lokalne[0][2],2));
 }
+
+Wektor3D Dron::wez_srodek_drona()
+{
+    return this->srodek;
+}

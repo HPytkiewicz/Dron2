@@ -81,6 +81,8 @@ uint wez_id() override;
 * \brief Metoda zwracajaca promien kolizji drona
 */
 double wez_promien() override;
+
+Wektor3D wez_srodek_drona() override;
 };
 
 #endif

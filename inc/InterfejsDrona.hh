@@ -36,6 +36,8 @@ virtual void wyswietl_wspolrzedne() = 0;
 virtual uint wez_id() = 0;
 
 virtual double wez_promien() = 0;
+
+virtual Wektor3D wez_srodek_drona() = 0;
 };
 
 #endif

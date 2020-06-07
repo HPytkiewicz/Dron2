@@ -8,6 +8,8 @@
 #include "Graniastoslup.hh"
 #include "Dron.hh"
 #include "InterfejsDrona.hh"
+#include "Przeszkoda.hh"
+#include "InterfejsPrzeszkody.hh"
 using namespace std;
 using namespace drawNS;
 
