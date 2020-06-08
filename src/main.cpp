@@ -25,11 +25,11 @@ vector<shared_ptr<InterfejsDrona>> kolekcja_dronow;
 
 int main()
 {
-    std::shared_ptr<drawNS::Draw3DAPI> gnuplot(new APIGnuPlot3D(-40,40,-40,40,-40,40));
+    std::shared_ptr<drawNS::Draw3DAPI> gnuplot(new APIGnuPlot3D(-45,45,-45,45,-45,45));
     gnuplot->change_ref_time_ms(0);
 
-    Plaszczyzna Dno({-39,39,-39},{39,-39,-39}, gnuplot);
-    Plaszczyzna Woda({-39,39,39},{39,-39,39}, gnuplot);
+    Plaszczyzna Dno({-44,44,-44},{44,-44,-44}, gnuplot);
+    Plaszczyzna Woda({-44,44,44},{44,-44,44}, gnuplot);
     
     Woda.rysuj_plaszczyzne();
     Woda.rysuj_plaszczyzne();
@@ -37,34 +37,6 @@ int main()
     Woda.zmien_kolor('1');
     Dno.zmien_kolor('2');
 
-    /*vector<Wektor3D> wierzcholki_drona;
-    wierzcholki_drona.reserve(8);
-    wierzcholki_drona = 
-    {
-    wierzcholki_drona[0] = {-6,8,-4},
-    wierzcholki_drona[1] = {6,8,-4},
-    wierzcholki_drona[2] = {6,-8,-4},
-    wierzcholki_drona[3] = {-6,-8,-4},
-    wierzcholki_drona[4] = {-6,8,4},
-    wierzcholki_drona[5] = {6,8,4},
-    wierzcholki_drona[6] = {6,-8,4},
-    wierzcholki_drona[7] = {-6,-8,4},
-    };
-
-    vector<Wektor3D> wierzcholki_drona2;
-    wierzcholki_drona2.reserve(8);
-    wierzcholki_drona2 = 
-    {
-    wierzcholki_drona2[0] = {-3,4,-2},
-    wierzcholki_drona2[1] = {3,4,-2},
-    wierzcholki_drona2[2] = {3,-4,-2},
-    wierzcholki_drona2[3] = {-3,-4,-2},
-    wierzcholki_drona2[4] = {-3,4,2},
-    wierzcholki_drona2[5] = {3,4,2},
-    wierzcholki_drona2[6] = {3,-4,2},
-    wierzcholki_drona2[7] = {-3,-4,2},
-    };
-    */
     Macierz<double,3> bazowa_macierz;
     bazowa_macierz[0]={1,0,0};
     bazowa_macierz[1]={0,1,0};
@@ -75,11 +47,54 @@ int main()
     bazowy_srodek[1]=0;
     bazowy_srodek[2]=0;
 
+    Macierz<double,3> macierz_przeszkody1;
+    macierz_przeszkody1[0]={1,0,0};
+    macierz_przeszkody1[1]={0,0,-1};
+    macierz_przeszkody1[2]={0,1,0};
+
+    Wektor3D srodek_przeszkody1;
+    srodek_przeszkody1[0]=0;
+    srodek_przeszkody1[1]=35;
+    srodek_przeszkody1[2]=0;
+
+    Macierz<double,3> macierz_przeszkody2;
+    macierz_przeszkody2[0]={1,0,0};
+    macierz_przeszkody2[1]={0,1,0};
+    macierz_przeszkody2[2]={0,0,1};
+
+    Wektor3D srodek_przeszkody2;
+    srodek_przeszkody2[0]=0;
+    srodek_przeszkody2[1]=20;
+    srodek_przeszkody2[2]=0;
+
+    Macierz<double,3> macierz_przeszkody3;
+    macierz_przeszkody3[0]={1,0,0};
+    macierz_przeszkody3[1]={0,1,0};
+    macierz_przeszkody3[2]={0,0,1};
+
+    Wektor3D srodek_przeszkody2;
+    srodek_przeszkody2[0]=0;
+    srodek_przeszkody2[1]=20;
+    srodek_przeszkody2[2]=0;
+
     vector<std::shared_ptr<InterfejsDrona>> kolekcja_dronow;
+    vector<Przeszkoda> kolekcja_przeszkod;
     std::shared_ptr<InterfejsDrona> D1 = std::make_shared<Dron>(1,bazowy_srodek,gnuplot, bazowa_macierz);
     kolekcja_dronow.push_back(D1);
+    Przeszkoda Blok1(0.5,srodek_przeszkody1, macierz_przeszkody1, gnuplot);
+    kolekcja_przeszkod.push_back(Blok1);
+    Przeszkoda Blok2(0.5,srodek_przeszkody2, macierz_przeszkody2, gnuplot);
+    kolekcja_przeszkod.push_back(Blok2);
+    Przeszkoda Blok3(1.5,srodek_przeszkody3, macierz_przeszkody3, gnuplot);
+    kolekcja_przeszkod.push_back(Blok3);
+    for(uint i=0; i<kolekcja_przeszkod.size();i++)
+    {
+        kolekcja_przeszkod[i].skrec();
+        kolekcja_przeszkod[i].rysuj();
+    }
     uint dron_id = 0;
     kolekcja_dronow[dron_id]->stworzDrona();
+
     
     char odczyt;
     do{
@@ -97,7 +112,7 @@ int main()
         }
         if(odczyt == 'w')
         {
-            kolekcja_dronow[dron_id]->animacjaNaprzod();
+            kolekcja_dronow[dron_id]->animacjaNaprzod(kolekcja_przeszkod, kolekcja_dronow[dron_id]);
         }
         if(odczyt == 'r')
         {
@@ -130,7 +145,7 @@ int main()
         {
             for(uint i=0; i<kolekcja_dronow.size(); i++)
             {
-                cout << "Dron " << i << " Id drona: " << kolekcja_dronow[i]->wez_id() << endl;
+                cout << "Dron " << i << " Id drona: " << kolekcja_dronow[i]->wez_id() << " Srodek drona: " << kolekcja_dronow[i]->wez_srodek_drona() << endl;
             }
             cout << "Podaj ktorym dronem chcesz sterowac: " << endl;
             uint pom;
@@ -142,8 +157,7 @@ int main()
         if(odczyt == 'q')
         {
             kolekcja_dronow[dron_id]->wyswietl_wspolrzedne();
-            cout << "Numer obecnego drona: " << dron_id << endl;
-            cout << "Promien kolizji drona: " << kolekcja_dronow[dron_id]->wez_promien() << endl;
+            cout << "Numer obecnego drona: " << dron_id << endl << "Srodek drona: " << kolekcja_dronow[dron_id]->wez_srodek_drona() << endl;
         }
     } while (odczyt != 'k');
 

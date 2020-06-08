@@ -20,7 +20,7 @@ void Dron::stworzDrona()
     this->SrubaP.rysuj();
 }
 
-void Dron::animacjaNaprzod()
+void Dron::animacjaNaprzod(vector<Przeszkoda> kolekcja_przeszkod, shared_ptr<InterfejsDrona> dronpom)
 {
     double kat, odleglosc;
     do{
@@ -41,15 +41,25 @@ void Dron::animacjaNaprzod()
         usleep(1);
     }
     }
-
-    for(int i=0; i<100; i++)
+    bool kolizja = false;
+    uint i=0;
+    do
     {
+        i++;
         this->naprzod(odleglosc/100, 0);
         this->animacjaSruby();
         this->skrec();
         this->rysuj();
+        for(uint j=0; j<kolekcja_przeszkod.size();++j)
+        {
+            if(kolekcja_przeszkod[j].czy_kolizja(dronpom))
+            {
+                kolizja = true;
+                cout << " Napotkano kolizje " << endl;
+            }
+        }
         usleep(1);
-    }
+    }while(i<100 && !kolizja);
     if(kat!=0)
     {
     for(int i=0; i<90; i++)

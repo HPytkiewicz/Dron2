@@ -6,9 +6,13 @@
 #include "rozmiar.h"
 #include <unistd.h>
 #include "Dr3D_gnuplot_api.hh"
+#include "Przeszkoda.hh"
+#include "InterfejsPrzeszkody.hh"
 
 using namespace std;
 using namespace drawNS;
+
+class Przeszkoda;
 
 class InterfejsDrona {
 public:
@@ -23,7 +27,7 @@ virtual void animacjaObrotu() = 0;
 /*!
     * \brief Wirtualna metoda animujaca ruch drona
     */
-virtual void animacjaNaprzod() = 0;
+virtual void animacjaNaprzod(vector<Przeszkoda> kolekcja_przeszkod, shared_ptr<InterfejsDrona> dronpom) = 0;
 /*!
     * \brief Wirtualna metoda animujaca ruch srub
     */

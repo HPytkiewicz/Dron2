@@ -12,11 +12,11 @@ obj/main.o: src/main.cpp inc/Dr3D_gnuplot_api.hh
 obj/Dron.o: src/Dron.cpp inc/Dron.hh
 	g++ ${CPPFLAGS} -o obj/Dron.o src/Dron.cpp
 
-obj/Plaszczyzna.o: src/Plaszczyzna.cpp inc/Plaszczyzna.hh	
-	g++ ${CPPFLAGS} -o obj/Plaszczyzna.o src/Plaszczyzna.cpp
-
 obj/Przeszkoda.o: src/Przeszkoda.cpp inc/Przeszkoda.hh
 	g++ ${CPPFLAGS} -o obj/Przeszkoda.o src/Przeszkoda.cpp
+
+obj/Plaszczyzna.o: src/Plaszczyzna.cpp inc/Plaszczyzna.hh	
+	g++ ${CPPFLAGS} -o obj/Plaszczyzna.o src/Plaszczyzna.cpp
 
 obj/Dr3D_gnuplot_api.o: src/Dr3D_gnuplot_api.cpp inc/Dr3D_gnuplot_api.hh
 	g++ ${CPPFLAGS} -o obj/Dr3D_gnuplot_api.o src/Dr3D_gnuplot_api.cpp

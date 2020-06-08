@@ -10,11 +10,14 @@
 #include "MacierzObrotu.hh"
 #include "Wektor3D.hh"
 #include "InterfejsDrona.hh"
+#include "Dron.hh"
+
+class InterfejsDrona;
 
 class InterfejsPrzeszkody 
 {
     public:
-        virtual bool czy_kolizja(std::shared_ptr<InterfejsDrona> dronpom) = 0;
+    virtual bool czy_kolizja(std::shared_ptr<InterfejsDrona> dronpom) = 0;
 };
 
 #endif

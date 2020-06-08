@@ -12,6 +12,7 @@
 #include "Prostopadloscian.hh"
 #include "Graniastoslup.hh"
 #include "InterfejsDrona.hh"
+#include "Przeszkoda.hh"
 
 using namespace std;
 using namespace drawNS;
@@ -64,7 +65,7 @@ void animacjaObrotu() override;
 /*!
     * \brief Metoda animujaca ruch drona
     */
-void animacjaNaprzod() override;
+void animacjaNaprzod(vector<Przeszkoda> kolekcja_przeszkod, shared_ptr<InterfejsDrona> dronpom) override;
 /*!
     * \brief Metoda animujaca ruch srub
     */
