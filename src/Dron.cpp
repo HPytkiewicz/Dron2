@@ -20,7 +20,7 @@ void Dron::stworzDrona()
     this->SrubaP.rysuj();
 }
 
-void Dron::animacjaNaprzod(vector<Przeszkoda> kolekcja_przeszkod, shared_ptr<InterfejsDrona> dronpom)
+void Dron::animacjaNaprzod(vector<std::shared_ptr<InterfejsPrzeszkody>> kolekcja_przeszkod, shared_ptr<InterfejsDrona> dronpom)
 {
     double kat, odleglosc;
     do{
@@ -46,20 +46,20 @@ void Dron::animacjaNaprzod(vector<Przeszkoda> kolekcja_przeszkod, shared_ptr<Int
     do
     {
         i++;
-        this->naprzod(odleglosc/100, 0);
+        this->naprzod(odleglosc/(2*abs(odleglosc)), 0);
         this->animacjaSruby();
         this->skrec();
         this->rysuj();
         for(uint j=0; j<kolekcja_przeszkod.size();++j)
         {
-            if(kolekcja_przeszkod[j].czy_kolizja(dronpom))
+            if(kolekcja_przeszkod[j]->czy_kolizja(dronpom))
             {
                 kolizja = true;
                 cout << " Napotkano kolizje " << endl;
             }
         }
         usleep(1);
-    }while(i<100 && !kolizja);
+    }while(i<2*abs(odleglosc) && !kolizja);
     if(kat!=0)
     {
     for(int i=0; i<90; i++)
@@ -136,4 +136,19 @@ double Dron::wez_promien()
 Wektor3D Dron::wez_srodek_drona()
 {
     return this->srodek;
+}
+
+bool Dron::czy_kolizja(std::shared_ptr<InterfejsDrona> dronpom)
+{
+    if(this->wez_srodek_drona() == dronpom->wez_srodek_drona())
+        return false;
+    double odleglosc = (this->srodek - dronpom->wez_srodek_drona()).dlugosc();
+    if(dronpom->wez_promien() + this->wez_promien() >= odleglosc)
+            return true;
+    return false;
+}
+
+void Dron::stworz_przeszkode() 
+{
+    this->stworzDrona();
 }

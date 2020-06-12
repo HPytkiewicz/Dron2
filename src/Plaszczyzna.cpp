@@ -1,6 +1,6 @@
 #include "Plaszczyzna.hh"
 
-Plaszczyzna::Plaszczyzna(Wektor3D lewygorny, Wektor3D prawydolny, std::shared_ptr<drawNS::Draw3DAPI> gnuplot)
+Plaszczyzna::Plaszczyzna(Wektor3D lewygorny, Wektor3D prawydolny, std::shared_ptr<drawNS::Draw3DAPI> gnuplot, bool nowa_przenikalnosc)
 {
     for(int i = 0; i<abs(prawydolny[0])+abs(lewygorny[0])+1; i+=5)
     {
@@ -14,7 +14,9 @@ Plaszczyzna::Plaszczyzna(Wektor3D lewygorny, Wektor3D prawydolny, std::shared_pt
                  this->wierzcholki_plaszczyzny[i/5].push_back(Point3D(i-abs(lewygorny[0]),j-abs(prawydolny[1]),prawydolny[2]-0.5));
         }
     }
+    this->przenikalnosc=nowa_przenikalnosc;
     this->lacze=gnuplot;
+    this->wysokosc=lewygorny[2];
 }
 
 void Plaszczyzna::rysuj_plaszczyzne()
@@ -31,17 +33,6 @@ void Plaszczyzna::usun_plaszczyzne()
 
 void Plaszczyzna::zmien_kolor(char nowy_kolor)
 {
-    /*cout << endl << "Oznaczenia kolorow:" << endl;
-    cout << "1 - niebieski" << endl;
-    cout << "2 - czarny" << endl;
-    cout << "3 - bialy" << endl;
-    cout << "4 - szary" << endl;
-    cout << "5 - jasno niebieski" << endl;
-    cout << "6 - czerwony" << endl;
-    cout << "7 - zielony" << endl;
-    cout << "8 - zolty" << endl;
-    cout << "9 - pomaranczowy" << endl;
-    cout << "0 - fioletowy" << endl; */
     switch(nowy_kolor){
     case '1':
     this->lacze->change_shape_color(this->id,"blue");
@@ -87,4 +78,19 @@ void Plaszczyzna::zmien_kolor(char nowy_kolor)
     cout << "Niepoprawny kolor." << endl;
     break;
     }
+}
+
+bool Plaszczyzna::czy_kolizja(std::shared_ptr<InterfejsDrona> dronpom)
+{
+    double odleglosc = abs(this->wysokosc);
+    if(this->przenikalnosc)
+        odleglosc += (dronpom->wez_srodek_drona()[2])/2;
+    if(odleglosc - abs(dronpom->wez_promien()) <= abs(dronpom->wez_srodek_drona()[2])/2)
+        return true;
+    return false;
+}
+
+void Plaszczyzna::stworz_przeszkode()
+{
+    this->rysuj_plaszczyzne();
 }

@@ -3,6 +3,9 @@
 
 #include "InterfejsPrzeszkody.hh"
 #include "InterfejsDrona.hh"
+#include "Prostopadloscian.hh"
+
+class InterfejsDrona;
 
 class Przeszkoda : public Prostopadloscian, public InterfejsPrzeszkody
 {
@@ -13,6 +16,8 @@ class Przeszkoda : public Prostopadloscian, public InterfejsPrzeszkody
     double wez_promien_przeszkody();
 
     bool czy_kolizja(std::shared_ptr<InterfejsDrona> dronpom) override;
+
+    void stworz_przeszkode() override;
 };
 
 #endif

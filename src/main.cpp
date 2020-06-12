@@ -21,21 +21,18 @@ void waitKey()
     } while (cin.get() != '\n');
 }
 
+void wyswietl_ilosc_obiektow()
+{
+    cout << "Ilosc aktualnych obiektow: " << Bryla::wez_aktualne_obiekty() << endl;
+    cout << "Ilosc wszystkich obirktow: " << Bryla::wez_wszystkie_obiekty() << endl;
+}
+
 vector<shared_ptr<InterfejsDrona>> kolekcja_dronow;
 
 int main()
 {
-    std::shared_ptr<drawNS::Draw3DAPI> gnuplot(new APIGnuPlot3D(-45,45,-45,45,-45,45));
+    std::shared_ptr<drawNS::Draw3DAPI> gnuplot(new APIGnuPlot3D(-45,45,-45,45,-45,55));
     gnuplot->change_ref_time_ms(0);
-
-    Plaszczyzna Dno({-44,44,-44},{44,-44,-44}, gnuplot);
-    Plaszczyzna Woda({-44,44,44},{44,-44,44}, gnuplot);
-    
-    Woda.rysuj_plaszczyzne();
-    Woda.rysuj_plaszczyzne();
-    Dno.rysuj_plaszczyzne();
-    Woda.zmien_kolor('1');
-    Dno.zmien_kolor('2');
 
     Macierz<double,3> bazowa_macierz;
     bazowa_macierz[0]={1,0,0};
@@ -53,7 +50,7 @@ int main()
     macierz_przeszkody1[2]={0,1,0};
 
     Wektor3D srodek_przeszkody1;
-    srodek_przeszkody1[0]=0;
+    srodek_przeszkody1[0]=20;
     srodek_przeszkody1[1]=35;
     srodek_przeszkody1[2]=0;
 
@@ -63,7 +60,7 @@ int main()
     macierz_przeszkody2[2]={0,0,1};
 
     Wektor3D srodek_przeszkody2;
-    srodek_przeszkody2[0]=0;
+    srodek_przeszkody2[0]=-20;
     srodek_przeszkody2[1]=20;
     srodek_przeszkody2[2]=0;
 
@@ -72,31 +69,41 @@ int main()
     macierz_przeszkody3[1]={0,1,0};
     macierz_przeszkody3[2]={0,0,1};
 
-    Wektor3D srodek_przeszkody2;
-    srodek_przeszkody2[0]=0;
-    srodek_przeszkody2[1]=20;
-    srodek_przeszkody2[2]=0;
+    Wektor3D srodek_przeszkody3;
+    srodek_przeszkody3[0]=10;
+    srodek_przeszkody3[1]=30;
+    srodek_przeszkody3[2]=6;
 
     vector<std::shared_ptr<InterfejsDrona>> kolekcja_dronow;
-    vector<Przeszkoda> kolekcja_przeszkod;
-    std::shared_ptr<InterfejsDrona> D1 = std::make_shared<Dron>(1,bazowy_srodek,gnuplot, bazowa_macierz);
+    vector<std::shared_ptr<InterfejsPrzeszkody>> kolekcja_przeszkod;
+    std::shared_ptr<Plaszczyzna> Dno = std::make_shared<Plaszczyzna>(Wektor3D(-44,44,-44),Wektor3D(44,-44,-44), gnuplot, false);
+    std::shared_ptr<Plaszczyzna> Woda = std::make_shared<Plaszczyzna>(Wektor3D(-44,44,44),Wektor3D(44,-44,44), gnuplot, true);
+    kolekcja_przeszkod.push_back(Woda);
+    kolekcja_przeszkod.push_back(Dno);
+    Woda->rysuj_plaszczyzne();
+    Woda->rysuj_plaszczyzne();
+    Dno->rysuj_plaszczyzne();
+    Woda->zmien_kolor('1');
+    Dno->zmien_kolor('2');
+    std::shared_ptr<Dron> D1 = std::make_shared<Dron>(1,bazowy_srodek,gnuplot, bazowa_macierz);
     kolekcja_dronow.push_back(D1);
-    Przeszkoda Blok1(0.5,srodek_przeszkody1, macierz_przeszkody1, gnuplot);
+    kolekcja_przeszkod.push_back(D1);
+    std::shared_ptr<Przeszkoda> Blok1 = std::make_shared<Przeszkoda>(0.5,srodek_przeszkody1, macierz_przeszkody1, gnuplot);
     kolekcja_przeszkod.push_back(Blok1);
-    Przeszkoda Blok2(0.5,srodek_przeszkody2, macierz_przeszkody2, gnuplot);
+    std::shared_ptr<Przeszkoda> Blok2 = std::make_shared<Przeszkoda>(0.5,srodek_przeszkody2, macierz_przeszkody2, gnuplot);
     kolekcja_przeszkod.push_back(Blok2);
-    Przeszkoda Blok3(1.5,srodek_przeszkody3, macierz_przeszkody3, gnuplot);
+    std::shared_ptr<Przeszkoda> Blok3 = std::make_shared<Przeszkoda>(1.5,srodek_przeszkody3, macierz_przeszkody3, gnuplot);
     kolekcja_przeszkod.push_back(Blok3);
     for(uint i=0; i<kolekcja_przeszkod.size();i++)
     {
-        kolekcja_przeszkod[i].skrec();
-        kolekcja_przeszkod[i].rysuj();
+        kolekcja_przeszkod[i]->stworz_przeszkode();
     }
     uint dron_id = 0;
     kolekcja_dronow[dron_id]->stworzDrona();
 
     
     char odczyt;
+    wyswietl_ilosc_obiektow();
     do{
         cout << "Wczytaj swoj ruch (m dla menu): ";
         cin >> odczyt;
@@ -137,8 +144,9 @@ int main()
             cin >> nowy_srodek[1];
             cout << "Z " << endl;
             cin >> nowy_srodek[2];
-            std::shared_ptr<InterfejsDrona> Dpom = std::make_shared<Dron>(skala,nowy_srodek, gnuplot, bazowa_macierz);
+            std::shared_ptr<Dron> Dpom = std::make_shared<Dron>(skala,nowy_srodek, gnuplot, bazowa_macierz);
             kolekcja_dronow.push_back(Dpom);
+            kolekcja_przeszkod.push_back(Dpom);
             kolekcja_dronow.back()->stworzDrona();
         }
         if(odczyt == 'p')
@@ -159,6 +167,7 @@ int main()
             kolekcja_dronow[dron_id]->wyswietl_wspolrzedne();
             cout << "Numer obecnego drona: " << dron_id << endl << "Srodek drona: " << kolekcja_dronow[dron_id]->wez_srodek_drona() << endl;
         }
+        wyswietl_ilosc_obiektow();
     } while (odczyt != 'k');
 
     return 0;

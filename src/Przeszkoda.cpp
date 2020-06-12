@@ -14,3 +14,9 @@
             return true;
         return false;
     }
+
+    void Przeszkoda::stworz_przeszkode()
+    {
+        this->skrec();
+        this->rysuj();
+    }

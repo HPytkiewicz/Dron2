@@ -5,11 +5,12 @@
 #include <cmath>
 #include "Dr3D_gnuplot_api.hh"
 #include "Wektor3D.hh"
+#include "InterfejsPrzeszkody.hh"
 
 using namespace std;
 using namespace drawNS;
 
-class Plaszczyzna
+class Plaszczyzna : public InterfejsPrzeszkody
 {   
     /*!
     * \brief Macierz punktow 3D na ktorej rozpieta jest plaszczyzna
@@ -23,6 +24,10 @@ class Plaszczyzna
     * \brief Id plaszczyzny
     */
     uint id=1;
+
+    bool przenikalnosc;
+
+    double wysokosc;
     public:
     /*!
     * \brief Usuniety konstruktor bezparametryczny
@@ -34,7 +39,7 @@ class Plaszczyzna
     * \param prawydolny - wektor polozenia prawego dolnego rogu plaszczyzny
     * \param gnuplot - Wskaznik na lacze do gnuplota
     */
-    Plaszczyzna(Wektor3D lewygorny, Wektor3D prawydolny, std::shared_ptr<drawNS::Draw3DAPI> gnuplot);
+    Plaszczyzna(Wektor3D lewygorny, Wektor3D prawydolny, std::shared_ptr<drawNS::Draw3DAPI> gnuplot, bool nowa_przenikalnosc);
     /*!
     * \brief Metoda zmieniajaca kolor plaszczyzny 
     * \param nowy_kolor - kolor przyjmowany przez plaszczyzne
@@ -48,6 +53,10 @@ class Plaszczyzna
     * \brief Metoda usuwajaca narysowana plaszczyzne
     */
     void usun_plaszczyzne();
+
+    bool czy_kolizja(std::shared_ptr<InterfejsDrona> dronpom) override;
+
+    void stworz_przeszkode() override;
 };
 
 #endif 

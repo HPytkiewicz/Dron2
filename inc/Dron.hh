@@ -12,12 +12,13 @@
 #include "Prostopadloscian.hh"
 #include "Graniastoslup.hh"
 #include "InterfejsDrona.hh"
-#include "Przeszkoda.hh"
+#include "InterfejsPrzeszkody.hh"
 
 using namespace std;
 using namespace drawNS;
 
-class Dron : public Prostopadloscian, public InterfejsDrona {
+class Dron : public Prostopadloscian, public InterfejsDrona, public InterfejsPrzeszkody 
+{
     /*!
     * \brief Lewa sruba drona
     */
@@ -65,7 +66,7 @@ void animacjaObrotu() override;
 /*!
     * \brief Metoda animujaca ruch drona
     */
-void animacjaNaprzod(vector<Przeszkoda> kolekcja_przeszkod, shared_ptr<InterfejsDrona> dronpom) override;
+void animacjaNaprzod(vector<std::shared_ptr<InterfejsPrzeszkody>> kolekcja_przeszkod, shared_ptr<InterfejsDrona> dronpom) override;
 /*!
     * \brief Metoda animujaca ruch srub
     */
@@ -84,6 +85,10 @@ uint wez_id() override;
 double wez_promien() override;
 
 Wektor3D wez_srodek_drona() override;
+
+bool czy_kolizja(std::shared_ptr<InterfejsDrona> dronpom) override;
+
+void stworz_przeszkode() override;
 };
 
 #endif
