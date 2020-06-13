@@ -25,7 +25,7 @@ void waitKey()
 void wyswietl_ilosc_obiektow()
 {
     cout << "Ilosc aktualnych obiektow: " << Bryla::wez_aktualne_obiekty() << endl;
-    cout << "Ilosc wszystkich obirktow: " << Bryla::wez_wszystkie_obiekty() << endl;
+    cout << "Ilosc wszystkich obiektow: " << Bryla::wez_wszystkie_obiekty() << endl;
 }
 
 vector<shared_ptr<InterfejsDrona>> kolekcja_dronow;
@@ -77,25 +77,25 @@ int main()
 
     vector<std::shared_ptr<InterfejsDrona>> kolekcja_dronow;
     vector<std::shared_ptr<InterfejsPrzeszkody>> kolekcja_przeszkod;
-    //std::shared_ptr<Plaszczyzna> Dno = std::make_shared<Plaszczyzna>(Wektor3D(-44,44,-44),Wektor3D(44,-44,-44), gnuplot, false);
+    std::shared_ptr<Plaszczyzna> Dno = std::make_shared<Plaszczyzna>(Wektor3D(-44,44,-44),Wektor3D(44,-44,-44), gnuplot, false);
     std::shared_ptr<Plaszczyzna> Woda = std::make_shared<Plaszczyzna>(Wektor3D(-44,44,44),Wektor3D(44,-44,44), gnuplot, true);
     kolekcja_przeszkod.push_back(Woda);
-    //kolekcja_przeszkod.push_back(Dno);
-    Woda->rysuj_plaszczyzne();
-    //Woda->rysuj_plaszczyzne();
-    //Dno->rysuj_plaszczyzne();
-    Woda->zmien_kolor('1');
-    Woda->zmien_kolor('1');
-    //Dno->zmien_kolor('2');
+    kolekcja_przeszkod.push_back(Dno);
+    Woda->rysuj();
+    Dno->rysuj();
+    Woda->ustaw_kolor("blue");
+    Dno->ustaw_kolor("black");
     std::shared_ptr<Dron> D1 = std::make_shared<Dron>(1,bazowy_srodek,gnuplot, bazowa_macierz);
     kolekcja_dronow.push_back(D1);
     kolekcja_przeszkod.push_back(D1);
+    D1->zmien_kolor_drona("red");
     std::shared_ptr<Przeszkoda> Blok1 = std::make_shared<Przeszkoda>(0.5,srodek_przeszkody1, macierz_przeszkody1, gnuplot);
     kolekcja_przeszkod.push_back(Blok1);
-    std::shared_ptr<Przeszkoda> Blok2 = std::make_shared<Przeszkoda>(0.5,srodek_przeszkody2, macierz_przeszkody2, gnuplot);
+    /*std::shared_ptr<Przeszkoda> Blok2 = std::make_shared<Przeszkoda>(0.5,srodek_przeszkody2, macierz_przeszkody2, gnuplot);
     kolekcja_przeszkod.push_back(Blok2);
-    std::shared_ptr<Przeszkoda> Blok3 = std::make_shared<Przeszkoda>(1.5,srodek_przeszkody3, macierz_przeszkody3, gnuplot);
+    std::shared_ptr<Przeszkoda> Blok3 = std::make_shared<Przeszkoda>(0.8,srodek_przeszkody3, macierz_przeszkody3, gnuplot);
     kolekcja_przeszkod.push_back(Blok3);
+    */
     for(uint i=0; i<kolekcja_przeszkod.size();i++)
     {
         kolekcja_przeszkod[i]->stworz_przeszkode();
@@ -163,6 +163,13 @@ int main()
             cin >> pom;
             }while(pom<0 || pom>kolekcja_dronow.size()-1);
             dron_id = pom;
+            for(int i=0; i<kolekcja_dronow.size(); i++)
+            {
+                kolekcja_dronow[i]->zmien_kolor_drona("black");
+                kolekcja_dronow[i]->stworzDrona();
+            }    
+            kolekcja_dronow[dron_id]->zmien_kolor_drona("red");
+            kolekcja_dronow[dron_id]->stworzDrona();
         }
         if(odczyt == 'q')
         {

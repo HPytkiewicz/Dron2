@@ -47,6 +47,8 @@ double katX;
 */
 uint id;
 
+string kolor;
+
 static int wszystkie_obiekty;
 
 static int zniszczone_obiekty;
@@ -62,10 +64,14 @@ Bryla()=delete;
 * \param wsp_srodek - wektor polozenia srodka bryly
 */
 Bryla(std::shared_ptr<drawNS::Draw3DAPI> gnuplot, Wektor3D wsp_srodek, Macierz<double,3> mac_orientacji): lacze(gnuplot), 
-srodek(wsp_srodek), zapasowa_orientacja(mac_orientacji), katZ(0), katY(0), katX(0), id(0) {zeruj_orientacje(); ++wszystkie_obiekty;}
+srodek(wsp_srodek), zapasowa_orientacja(mac_orientacji), katZ(0), katY(0), katX(0), id(0) {zeruj_orientacje(); ++wszystkie_obiekty; kolor="black";}
+
+Bryla(std::shared_ptr<drawNS::Draw3DAPI> gnuplot, Wektor3D wsp_srodek): lacze(gnuplot), 
+srodek(wsp_srodek), katZ(0), katY(0), katX(0), id(0) 
+{orientacja[0]={1,0,0}; orientacja[1]={0,1,0}; orientacja[2]={0,0,1}; zeruj_orientacje(); ++wszystkie_obiekty; kolor="black";}
 
 Bryla(const Bryla &nowa): lacze(nowa.lacze), srodek(nowa.srodek), zapasowa_orientacja(nowa.zapasowa_orientacja), katZ(nowa.katZ),
-katY(nowa.katY), katX(nowa.katX), id(nowa.id) {zeruj_orientacje(); ++wszystkie_obiekty;}
+katY(nowa.katY), katX(nowa.katX), id(nowa.id), kolor(nowa.kolor) {zeruj_orientacje(); ++wszystkie_obiekty;}
 
 ~Bryla() {--zniszczone_obiekty;}
 /*!
@@ -103,7 +109,7 @@ void dodaj_katX(double stopnie){this->katX -= stopnie;}
 */
 void dodaj_katY(double stopnie){this->katX += stopnie;}
 
-void zmien_kolor(char nowy_kolor);
+void ustaw_kolor(string nowy_kolor){this->kolor = nowy_kolor;}
 
 static int wez_wszystkie_obiekty() {return wszystkie_obiekty;}
 

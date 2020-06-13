@@ -4,7 +4,7 @@ void Graniastoslup::rysuj()
 {
     this->usun();
     (*this).ustaw_globalnie();
-    this->id = this->lacze->draw_polyhedron(wierzcholki_globalnie);
+    this->id = this->lacze->draw_polyhedron(wierzcholki_globalnie, kolor);
 }
 
 void Graniastoslup::usun()

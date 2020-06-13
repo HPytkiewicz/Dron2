@@ -41,6 +41,8 @@ virtual uint wez_id() = 0;
 virtual double wez_promien() = 0;
 
 virtual Wektor3D wez_srodek_drona() = 0;
+
+virtual void zmien_kolor_drona(string nowy_kolor) = 0;
 };
 
 #endif

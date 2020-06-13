@@ -1,7 +1,6 @@
 #ifndef ROZMIAR_H
 #define ROZMIAR_H
 
-
 #define SKIP 14
 
 #define EPSILON 0.0001

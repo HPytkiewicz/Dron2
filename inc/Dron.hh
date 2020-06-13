@@ -89,6 +89,8 @@ Wektor3D wez_srodek_drona() override;
 bool czy_kolizja(std::shared_ptr<InterfejsDrona> dronpom) override;
 
 void stworz_przeszkode() override;
+
+void zmien_kolor_drona(string nowy_kolor) override;
 };
 
 #endif

@@ -22,6 +22,7 @@ void Dron::stworzDrona()
 
 void Dron::animacjaNaprzod(vector<std::shared_ptr<InterfejsPrzeszkody>> kolekcja_przeszkod, shared_ptr<InterfejsDrona> dronpom)
 {
+    cout << endl << "Dziala " << endl;
     double kat, odleglosc;
     do{
     cout << "Podaj kat przechylenia: " << endl;
@@ -29,7 +30,6 @@ void Dron::animacjaNaprzod(vector<std::shared_ptr<InterfejsPrzeszkody>> kolekcja
     cout << "Podaj odleglosc ruchu: " << endl;
     cin >> odleglosc;
     }while(!cin.good());
-
     if(kat!=0)
     {
     for(int i=0; i<90; i++)
@@ -45,6 +45,7 @@ void Dron::animacjaNaprzod(vector<std::shared_ptr<InterfejsPrzeszkody>> kolekcja
     uint i=0;
     do
     {
+        
         i++;
         this->naprzod(odleglosc/(2*abs(odleglosc)), 0);
         this->animacjaSruby();
@@ -52,6 +53,7 @@ void Dron::animacjaNaprzod(vector<std::shared_ptr<InterfejsPrzeszkody>> kolekcja
         this->rysuj();
         for(uint j=0; j<kolekcja_przeszkod.size();++j)
         {
+            cout << endl <<"Sprawdzana przeszkoda nr: " << j << endl;
             if(kolekcja_przeszkod[j]->czy_kolizja(dronpom))
             {
                 kolizja = true;
@@ -151,4 +153,11 @@ bool Dron::czy_kolizja(std::shared_ptr<InterfejsDrona> dronpom)
 void Dron::stworz_przeszkode() 
 {
     this->stworzDrona();
+}
+
+void Dron::zmien_kolor_drona(string nowy_kolor)
+{
+    this->ustaw_kolor(nowy_kolor);
+    this->SrubaL.ustaw_kolor(nowy_kolor);
+    this->SrubaP.ustaw_kolor(nowy_kolor);
 }
