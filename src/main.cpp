@@ -91,11 +91,10 @@ int main()
     D1->zmien_kolor_drona("red");
     std::shared_ptr<Przeszkoda> Blok1 = std::make_shared<Przeszkoda>(0.5,srodek_przeszkody1, macierz_przeszkody1, gnuplot);
     kolekcja_przeszkod.push_back(Blok1);
-    /*std::shared_ptr<Przeszkoda> Blok2 = std::make_shared<Przeszkoda>(0.5,srodek_przeszkody2, macierz_przeszkody2, gnuplot);
+    std::shared_ptr<Przeszkoda> Blok2 = std::make_shared<Przeszkoda>(0.5,srodek_przeszkody2, macierz_przeszkody2, gnuplot);
     kolekcja_przeszkod.push_back(Blok2);
     std::shared_ptr<Przeszkoda> Blok3 = std::make_shared<Przeszkoda>(0.8,srodek_przeszkody3, macierz_przeszkody3, gnuplot);
     kolekcja_przeszkod.push_back(Blok3);
-    */
     for(uint i=0; i<kolekcja_przeszkod.size();i++)
     {
         kolekcja_przeszkod[i]->stworz_przeszkode();
