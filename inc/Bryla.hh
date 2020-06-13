@@ -103,6 +103,8 @@ void dodaj_katX(double stopnie){this->katX -= stopnie;}
 */
 void dodaj_katY(double stopnie){this->katX += stopnie;}
 
+void zmien_kolor(char nowy_kolor);
+
 static int wez_wszystkie_obiekty() {return wszystkie_obiekty;}
 
 static int wez_aktualne_obiekty() {return wszystkie_obiekty - zniszczone_obiekty;}

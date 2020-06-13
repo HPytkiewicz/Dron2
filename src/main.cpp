@@ -6,6 +6,7 @@
 #include "Macierz.hh"
 #include "Plaszczyzna.hh"
 #include "Graniastoslup.hh"
+#include "Bryla.hh"
 #include "Dron.hh"
 #include "InterfejsDrona.hh"
 #include "Przeszkoda.hh"
@@ -76,15 +77,16 @@ int main()
 
     vector<std::shared_ptr<InterfejsDrona>> kolekcja_dronow;
     vector<std::shared_ptr<InterfejsPrzeszkody>> kolekcja_przeszkod;
-    std::shared_ptr<Plaszczyzna> Dno = std::make_shared<Plaszczyzna>(Wektor3D(-44,44,-44),Wektor3D(44,-44,-44), gnuplot, false);
+    //std::shared_ptr<Plaszczyzna> Dno = std::make_shared<Plaszczyzna>(Wektor3D(-44,44,-44),Wektor3D(44,-44,-44), gnuplot, false);
     std::shared_ptr<Plaszczyzna> Woda = std::make_shared<Plaszczyzna>(Wektor3D(-44,44,44),Wektor3D(44,-44,44), gnuplot, true);
     kolekcja_przeszkod.push_back(Woda);
-    kolekcja_przeszkod.push_back(Dno);
+    //kolekcja_przeszkod.push_back(Dno);
     Woda->rysuj_plaszczyzne();
-    Woda->rysuj_plaszczyzne();
-    Dno->rysuj_plaszczyzne();
+    //Woda->rysuj_plaszczyzne();
+    //Dno->rysuj_plaszczyzne();
     Woda->zmien_kolor('1');
-    Dno->zmien_kolor('2');
+    Woda->zmien_kolor('1');
+    //Dno->zmien_kolor('2');
     std::shared_ptr<Dron> D1 = std::make_shared<Dron>(1,bazowy_srodek,gnuplot, bazowa_macierz);
     kolekcja_dronow.push_back(D1);
     kolekcja_przeszkod.push_back(D1);

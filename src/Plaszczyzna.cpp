@@ -82,12 +82,16 @@ void Plaszczyzna::zmien_kolor(char nowy_kolor)
 
 bool Plaszczyzna::czy_kolizja(std::shared_ptr<InterfejsDrona> dronpom)
 {
-    double odleglosc = abs(this->wysokosc);
     if(this->przenikalnosc)
-        odleglosc += (dronpom->wez_srodek_drona()[2])/2;
-    if(odleglosc - abs(dronpom->wez_promien()) <= abs(dronpom->wez_srodek_drona()[2])/2)
+    {
+        if(dronpom->wez_srodek_drona()[2] <= this->wysokosc)
+            return false;
+        return true;
+    }
+    if(dronpom->wez_srodek_drona()[2] <= this->wysokosc - dronpom->wez_srodek_drona()[2]/2)
         return true;
     return false;
+
 }
 
 void Plaszczyzna::stworz_przeszkode()
