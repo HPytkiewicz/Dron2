@@ -19,10 +19,12 @@ class Plaszczyzna : public InterfejsPrzeszkody, public Bryla
     */
     vector<vector<Point3D>> wierzcholki_plaszczyzny;
     /*!
-    * \brief Id plaszczyzny
+    * \brief Zmienna mowiaca o tym czy dron moze do polowy przeniknac przez plaszczyzne
     */
     bool przenikalnosc;
-
+    /*!
+    * \brief Wspolrzedna Z plaszczyzny
+    */
     double wysokosc;
     public:
     /*!
@@ -30,18 +32,13 @@ class Plaszczyzna : public InterfejsPrzeszkody, public Bryla
     */
     Plaszczyzna() = delete;
     /*!
-    * \brief Konstruktor przyjmujacy punkty w lewym gornym i prawym dolnym rogu plaszczyzny (patrzac z gory) i wskaznik na lacze do gnuplota
+    * \brief Konstruktor przyjmujacy punkty w lewym gornym i prawym dolnym rogu plaszczyzny (patrzac z gory), wskaznik na lacze do gnuplota i przenikalnosc
     * \param lewygorny - wektor polozenia lewego gornego rogu plaszczyzny
     * \param prawydolny - wektor polozenia prawego dolnego rogu plaszczyzny
     * \param gnuplot - Wskaznik na lacze do gnuplota
+    * \param nowa_przenikalnosc - zmienna logiczna okreslajaca przenikalnosc plaszczyzny
     */
     Plaszczyzna(Wektor3D lewygorny, Wektor3D prawydolny, std::shared_ptr<drawNS::Draw3DAPI> gnuplot, bool nowa_przenikalnosc);
-    //Bryla(gnuplot, Wektor3D(0,0,lewygorny[2]), Macierz<double,3>({1,0,0},{0,1,0},{0,0,1}))
-    /*!
-    * \brief Metoda zmieniajaca kolor plaszczyzny 
-    * \param nowy_kolor - kolor przyjmowany przez plaszczyzne
-    */
-    //void zmien_kolor(char nowy_kolor);
     /*!
     * \brief Metoda rysujaca plaszczyzne
     */
@@ -50,9 +47,14 @@ class Plaszczyzna : public InterfejsPrzeszkody, public Bryla
     * \brief Metoda usuwajaca narysowana plaszczyzne
     */
     void usun();
-
+   /*!
+    * \brief Metoda zwracajaca prawde w wypadku kolizji, falsz w przypadku jej braku
+    * \param dronpom - wskaznik na drona
+    */
     bool czy_kolizja(std::shared_ptr<InterfejsDrona> dronpom) override;
-
+    /*!
+    * \brief Metoda tworzaca plaszczyzne, dziedziczona z interfejsu przeszkody
+    */
     void stworz_przeszkode() override;
 };
 

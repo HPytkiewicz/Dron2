@@ -28,8 +28,6 @@ Graniastoslup SrubaL;
     */
 Graniastoslup SrubaP;
 
-Macierz<double,3> bazowa_macierz;
-
 public:
 /*!
     * \brief Usuniety konstruktor bezparametryczny
@@ -83,13 +81,23 @@ uint wez_id() override;
 * \brief Metoda zwracajaca promien kolizji drona
 */
 double wez_promien() override;
-
+/*!
+* \brief Metoda zwracajaca srodek drona
+*/
 Wektor3D wez_srodek_drona() override;
-
+/*!
+* \brief Metoda zwracajaca prawde w wypadku kolizji, falsz w przypadku jej braku
+* \param dronpom - wskaznik na drona
+*/
 bool czy_kolizja(std::shared_ptr<InterfejsDrona> dronpom) override;
-
+/*!
+* \brief Metoda tworzaca drona dziedziczona z interfejsu przeszkody
+*/
 void stworz_przeszkode() override;
-
+/*!
+* \brief Metoda zmieniajaca kolor drona
+* \param nowy_kolor - nowy kolor przyjmowany przez drona
+*/
 void zmien_kolor_drona(string nowy_kolor) override;
 };
 

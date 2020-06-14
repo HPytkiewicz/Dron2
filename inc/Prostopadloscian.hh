@@ -31,6 +31,10 @@ class Prostopadloscian : public Bryla, public MacierzObrotu
     Prostopadloscian()=delete;
     /*!
     * \brief KOnstruktor przyjmujacy za argumenty wierzcholki i srodek prostopadloscianu oraz wskaznik na lacze do gnuplota
+    * \param skala - skala drona
+    * \param nowy_srodek - srodek prostopadloscianu
+    * \param mac_orientacji - macierz orientacji prostopadloscianu
+    * \param gnuplot - wskaznik na lacze do gnuplota
     */
     Prostopadloscian(double skala, Wektor3D nowy_srodek, Macierz<double,3> mac_orientacji, std::shared_ptr<drawNS::Draw3DAPI> gnuplot):
     Bryla(gnuplot, nowy_srodek, mac_orientacji)
@@ -54,36 +58,6 @@ class Prostopadloscian : public Bryla, public MacierzObrotu
     wierzcholki_lokalnie = wierzcholki_sruby;
     zapasowe_lokalne = wierzcholki_sruby;
     }
-
-    /*!
-    * \brief KOnstruktor przyjmujacy srodek prostopadloscianu oraz wskaznik na lacze do gnuplota, uzywany do tymczasowego tworzenia srub
-    */
-    Prostopadloscian(Wektor3D nowy_srodek, std::shared_ptr<drawNS::Draw3DAPI> gnuplot, Macierz<double,3> mac_orientacji): 
-    Bryla(gnuplot, nowy_srodek, mac_orientacji)
-    {
-        vector<Wektor3D> wierzcholki_sruby;
-        wierzcholki_sruby.reserve(8);
-        wierzcholki_globalnie.reserve(8);
-        wierzcholki_sruby = 
-        {
-        wierzcholki_sruby[0] = {-1,1.5,-1},
-        wierzcholki_sruby[1] = {1,1.5,-1},
-        wierzcholki_sruby[2] = {1,-1.5,-1},
-        wierzcholki_sruby[3] = {-1,-1.5,-1},
-        wierzcholki_sruby[4] = {-1,1.5,1},
-        wierzcholki_sruby[5] = {1,1.5,1},
-        wierzcholki_sruby[6] = {1,-1.5,1},
-        wierzcholki_sruby[7] = {-1,-1.5,1},
-        };
-    wierzcholki_lokalnie = wierzcholki_sruby;
-    zapasowe_lokalne = wierzcholki_sruby;
-    dodaj_katY(90);
-    Macierz<double,3> macierzpom;
-    macierzpom[0]= {0,-1,0};
-    macierzpom[1]= {1,0,0};
-    macierzpom[2]= {0,0,1};
-    ustaw_orientacje(macierzpom);
-    }   
     /*!
     * \brief Metoda rysujaca prostopadlsocian
     */
@@ -100,7 +74,6 @@ class Prostopadloscian : public Bryla, public MacierzObrotu
     * \brief Metoda przywracjaca wierzcholka lokalne jej oryginalne wartosci
     */
     void zeruj_lokalne();
-
     /*!
     * \brief Metoda obracjaca bryle wedlug jej orientacji
     */
@@ -116,7 +89,9 @@ class Prostopadloscian : public Bryla, public MacierzObrotu
     * \param katpom - kat pomocniczy obracajacy prostopadlsocian wedlug osi X
     */
     void naprzod(double odleglosc, double katpom);
-
+    /*!
+    * \brief Metoda obliczajaca promien kolizji drona
+    */
     double wez_promien()
     {
         return sqrt(pow(this->zapasowe_lokalne[0][0],2)+pow(this->zapasowe_lokalne[0][1],2)+pow(this->zapasowe_lokalne[0][2],2));
